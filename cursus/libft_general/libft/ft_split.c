@@ -60,15 +60,11 @@ static void	ft_fill_matrix(char **m, const char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		inicio;
-	int		final;
 	char	**m;
 	int		size;
 
 	size = n_substr(s, c);
 	m = (char **)malloc((size + 1) * sizeof(char *));
-	inicio = 0;
-	final = 0;
 	if (m == (char **)0)
 		return ((char **)0);
 	ft_fill_matrix(m, s, c);

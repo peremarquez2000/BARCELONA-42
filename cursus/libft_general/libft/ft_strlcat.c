@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
-#include <bsd/string.h>
+//#include <bsd/string.h>
 #include "libft.h"
 
 static void	ft_v_strcat(char *s1, const char *s2, size_t size)
