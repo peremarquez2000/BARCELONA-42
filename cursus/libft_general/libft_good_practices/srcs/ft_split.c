@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
 
@@ -21,7 +22,10 @@ static int	n_substr(char const *s, char c)
 	counter = 0;
 	i = 0;
 	if (s[0] != c)
+	{
 		counter++;
+		i++;
+	}
 	while (s[i])
 	{
 		if (s[i] != c && (s[i - 1] == c))
@@ -44,12 +48,14 @@ static void	ft_fill_matrix(char **m, const char *s, char c)
 	j = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i - 1] == c || i == 0))
+		if (s[i] != c && i == 0)
+			inicio = 0;
+		else if (s[i] != c && s[i - 1] == c)
 			inicio = i;
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == (char)0))
 		{
 			final = i;
-			m[j] = ft_substr(s, inicio + 1, final - inicio + 1);
+			m[j] = ft_substr(s, inicio, final - inicio + 1);
 			j++;
 		}
 		i++;
@@ -59,33 +65,57 @@ static void	ft_fill_matrix(char **m, const char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		inicio;
-	int		final;
 	char	**m;
 	int		size;
 
 	size = n_substr(s, c);
+	if (size == 0 || s[0] == (char)0)
+	{
+		m = (char **)malloc(1 * sizeof(char *));
+		if (!m)
+			return (NULL);
+		m[0] = (char *)0;
+		return (m);
+	}
 	m = (char **)malloc((size + 1) * sizeof(char *));
-	inicio = 0;
-	final = 0;
-	if (m == (char **)0)
-		return ((char **)0);
+	if (!m)
+		return (NULL);
 	ft_fill_matrix(m, s, c);
 	return (m);
 }
 /*
 int	main()
 {
-	int i;
-	i = 0;
-	char *s1 = "hola que tal                vamos fresh?     ";
-	int size = n_substr(s1,' ');
-	char **m = ft_split(s1, ' ');
+	char **tab;
+	char *s = "";
+	int n = n_substr(s, ' ');
+	tab = ft_split(s, ' ');
 
-	while (i < size)
+	int i = 0;
+	while (i < n)
 	{
-		printf("string en la posicion %d = %s\n", i, m[i]);
+		printf("\ni = %d", i);
+		printf("\ntab[i] = %d", tab[i] == ());
 		i++;
 	}
 }
 */
+/*
+int main()
+{
+	char **tab;
+	char *s = "a";
+	int n = n_substr(s, ' ');
+	tab = ft_split(s, ' ');
+
+	printf("\nn = %i", n);
+
+	int i = 0;
+	while (i < n)
+	{
+		printf("\ntab[i] = %s", tab[i]);
+		i++;
+	}
+
+}
+	*/

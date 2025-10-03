@@ -23,22 +23,24 @@ char	*ft_strdup(char *src)
 	i = 0;
 	while (src[i])
 		i++;
-	m = malloc((i + 1) * sizeof(char));
+	len = i;
+	m = malloc((len + 1) * sizeof(char));
 	if (m == (char *)0)
 		return ((char *)0);
-	len = i;
 	i = 0;
 	while (i < len)
 	{
 		m[i] = src[i];
 		i++;
 	}
+	m[i] = (char)0;
 	return (m);
 }
 /*
 int	main(void)
 {
-	printf("\n strdup %s\n", strdup("hola"));
-	printf("\n ft_strdup %s\n", ft_strdup("hola"));
+	char*s1 = "hola que tal\n";
+	printf("strdup=%s", strdup(s1));
+	printf("ft_strdup=%s", ft_strdup(s1));
 }
 */

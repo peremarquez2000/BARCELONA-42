@@ -14,13 +14,16 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
+	unsigned char	*ptr;
+	size_t			i;
 
+	c = (unsigned char)c;
+	ptr = (unsigned char *)s;
 	i = 0;
 	while (i < n)
 	{
-		if (((unsigned char *)s)[i] == (unsigned char)c)
-			return (&((void *)s)[i]);
+		if (ptr[i] == c)
+			return ((void *)&(ptr)[i]);
 		i++;
 	}
 	return ((void *)0);
@@ -30,7 +33,7 @@ int main()
 {
    char cadena[] = "Erse una vez...";
    char cadena2[] = "Erse una vez...";
-   char *puntero; 
+   char *puntero;
  
    puntero = (char *)memchr( cadena, 'a', 50 );
    printf( "%s\n", cadena); 

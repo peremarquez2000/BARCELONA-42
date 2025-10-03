@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "libft.h"
 
 static	int	ft_exp(int number, int times)
 {
@@ -37,8 +38,8 @@ static int	n_digits(int nb)
 {
 	int	counter;
 
-	counter = 0;
-	while (nb % 10 != 0)
+	counter = 1;
+	while (nb / 10 != 0)
 	{
 		nb = nb / 10;
 		counter++;
@@ -65,9 +66,9 @@ char	*ft_itoa(int n)
 
 	i = 0;
 	if (n == 0)
-		return ("0");
+		return (ft_strdup("0"));
 	if (n == -2147483648)
-		return ("-2147483648");
+		return (ft_strdup("-2147483648"));
 	size = n_digits(n);
 	if (n < 0)
 		size++;
@@ -84,10 +85,11 @@ char	*ft_itoa(int n)
 	return (nb_c);
 }
 /*
+
 int	main(void)
 {
-	int	a = -567;
-	//printf("\nn_digits === %d\n", n_digits(a));
+	int	a = 0;
+	printf("\nn_digits === %d\n", n_digits(a));
 	printf("\nITOA === %s\n", ft_itoa(a));
 	return (0);
 }

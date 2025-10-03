@@ -16,25 +16,26 @@
 
 static int	ft_overflow(size_t nmemb, size_t size)
 {
-		size_t max;
-		if (nmemb > size)
-			max = nmemb;
-		else
-			max = size;
-		if (nmemb * size < max)
-		{
-			return (1);
-		}
-		return (0);
+	size_t	max;
+
+	if (nmemb > size)
+		max = nmemb;
+	else
+		max = size;
+	if (nmemb * size < max)
+		return (1);
+	return (0);
 }
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*ptr;
+
 	ptr = (void *)0;
-	if(nmemb == 0 || size == 0)
+	if (nmemb == 0 || size == 0)
 	{
 		ptr = malloc(0);
-		return(ptr);
+		return (ptr);
 	}
 	if (ft_overflow(nmemb, size) == 1)
 		return (ptr);

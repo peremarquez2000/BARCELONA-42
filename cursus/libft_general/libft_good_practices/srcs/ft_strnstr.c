@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <bsd/string.h>
+//#include <bsd/string.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -22,8 +22,10 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	i = 0;
 	j = 0;
 	ptr = (char *)0;
-	if (little == (void *)0)
+	if (little[0] == (char)0)
+	{
 		return ((char *)big);
+	}
 	while (i < len && big[i])
 	{
 		j = 0;
@@ -40,10 +42,20 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 /*
 int main()
 {
-    char *little = "pepo";
-    char *big = "hola pepoo que tal va  estamos fresh?";
-    char *puntero = ft_strnstr(big, little, 0);
-
-    printf("puntero: %s", puntero);
+	int i = 0;
+    //char *little = "pepo";
+	char * empty = (char*)"";
+	while(empty[i])
+	{
+		printf("i = %d\n", i);
+		i++;
+	}
+    //char *big = "hola pepoo que tal va  estamos fresh?";
+    //char *puntero = ft_strnstr(big, little, 0);
+    char *puntero;
+    puntero = strnstr(empty, "", -1);
+    printf("\npuntero: %s", puntero);
+    puntero = strnstr(empty, "", 0);
+    printf("\npuntero: %s\n", puntero);
 }
-*/
+	*/

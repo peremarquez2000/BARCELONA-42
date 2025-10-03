@@ -22,7 +22,10 @@ static int	n_substr(char const *s, char c)
 	counter = 0;
 	i = 0;
 	if (s[0] != c)
+	{
 		counter++;
+		i++;
+	}
 	while (s[i])
 	{
 		if (s[i] != c && (s[i - 1] == c))
@@ -45,7 +48,9 @@ static void	ft_fill_matrix(char **m, const char *s, char c)
 	j = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i - 1] == c || i == 0))
+		if (s[i] != c && i == 0)
+			inicio = 0;
+		else if (s[i] != c && s[i - 1] == c)
 			inicio = i;
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == (char)0))
 		{
@@ -64,13 +69,53 @@ char	**ft_split(char const *s, char c)
 	int		size;
 
 	size = n_substr(s, c);
+	if (size == 0 || s[0] == (char)0)
+	{
+		m = (char **)malloc(1 * sizeof(char *));
+		if (!m)
+			return (NULL);
+		m[0] = (char *)0;
+		return (m);
+	}
 	m = (char **)malloc((size + 1) * sizeof(char *));
-	if (m == (char **)0)
-		return ((char **)0);
+	if (!m)
+		return (NULL);
 	ft_fill_matrix(m, s, c);
 	return (m);
 }
-//tab = ft_split("", ' ');
+/*
+int	main()
+{
+	char **tab;
+	char *s = "";
+	int n = n_substr(s, ' ');
+	tab = ft_split(s, ' ');
 
-//	char * splitme = strdup("Tripouille");
-//	tab = ft_split(splitme, ' ');
+	int i = 0;
+	while (i < n)
+	{
+		printf("\ni = %d", i);
+		printf("\ntab[i] = %d", tab[i] == ());
+		i++;
+	}
+}
+*/
+/*
+int main()
+{
+	char **tab;
+	char *s = "a";
+	int n = n_substr(s, ' ');
+	tab = ft_split(s, ' ');
+
+	printf("\nn = %i", n);
+
+	int i = 0;
+	while (i < n)
+	{
+		printf("\ntab[i] = %s", tab[i]);
+		i++;
+	}
+
+}
+	*/

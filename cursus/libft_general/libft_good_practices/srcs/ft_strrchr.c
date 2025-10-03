@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include <stdio.h>
 #include <string.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
@@ -19,9 +20,9 @@ char	*ft_strrchr(const char *s, int c)
 
 	ptr = (char *)0;
 	i = 0;
-	while (s[i])
+	while (i <= ft_strlen(s))
 	{
-		if (s[i] == c)
+		if ((unsigned char)s[i] == (unsigned char)c)
 			ptr = (char *)&s[i];
 		i++;
 	}
