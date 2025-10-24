@@ -33,9 +33,11 @@ char *get_next_line(int fd)
         bytesRead = read(fd, character, 1);
         size++;
     }
+    if (*character == '\n')
+        nl = copia_plus_one(nl, size, *character);
     return (nl);
 }
-
+/*
 int main(){
     
     char* fileName = "test.txt";
@@ -56,9 +58,23 @@ int main(){
     while (i < 50)
     {
         nl = get_next_line(fd);
-        printf("\n%s",nl);
+        printf("%s",nl);
         i++;
     }
     
     return(0);
 }
+*/
+/*
+int main(void)
+{
+    char *line;
+
+    while ((line = get_next_line(0)) != NULL)  
+    {
+        printf("%s", line);
+        free(line);
+    }
+    return 0;
+}
+*/

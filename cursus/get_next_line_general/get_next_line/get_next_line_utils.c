@@ -25,5 +25,6 @@ char *copia_plus_one(char *nl,int size, char c)
     }
     new_nl[i] = c;
     new_nl[i + 1] = (char)0;
+    free(nl);
     return (new_nl);
 }
