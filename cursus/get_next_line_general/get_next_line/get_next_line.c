@@ -9,53 +9,39 @@
 /*   Updated: 2025/10/01 20:00:49 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line_utils.c"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-//int read(int fileDescriptor, void *buffer, size_t bytesToRead)
+#include "get_next_line.h"
+
 char *get_next_line(int fd)
 {
-    char    *nl;
-    char buffer[1024];
-    int bytesRead = read(fd, buffer, sizeof(buffer));
-    nl = malloc((bytesRead + 1) * sizeof(char));
-    mempcpy(nl,buffer, bytesRead);
-    nl[bytesRead] =  74;
-    return (nl);
-    // printf("%s", nl);
-}
-/*
-int main(){
+    char *nl;
+    char *character;
+    int size;
+    int bytesRead;
+
+    size = 0;
+    character = (char *)malloc(1*sizeof(char));
+    nl = (char *)malloc((size)*sizeof(char));
     
-    char* fileName = "test.txt";
-    int fd = open(fileName, O_RDONLY);
-    if(fd == -1){
-        printf("\nError Opening File!!\n");
-        return(1);
-    }
-    else{
-        printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    }
-    char buffer[1024];
-    int bytesRead = read(fd, buffer, sizeof(buffer));
-    printf("%d bytes read!\n", bytesRead);
-    printf("\nFile Contents:\n");
-    for(int i=0; i<bytesRead; i++)
+    bytesRead = read(fd, character, 1);
+    if(!nl || !character || bytesRead != 1)
+        return (NULL);
+    while (bytesRead == 1 && *character != '\n')
     {
-        write(1,&buffer[i],1);
+        nl = copia_plus_one(nl, size, *character);
+        if (!nl)
+            return(NULL);
+        bytesRead = read(fd, character, 1);
+        size++;
     }
-
-
-    return 0;
+    return (nl);
 }
-*/
+
 int main(){
     
     char* fileName = "test.txt";
+    char* nl;
     int fd = open(fileName, O_RDONLY);
+    int i = 0;
     if(fd == -1)
     {
         printf("\nError Opening File!!\n");
@@ -63,6 +49,16 @@ int main(){
     }
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    printf("\n\n%s", get_next_line(fd));
-    return 0;
+    
+
+    
+    
+    while (i < 50)
+    {
+        nl = get_next_line(fd);
+        printf("\n%s",nl);
+        i++;
+    }
+    
+    return(0);
 }
