@@ -15,7 +15,7 @@
 
 void	ft_hexa(unsigned int n, int flag)
 {
-	if (0 <= n && n <= 9)
+	if (n <= 9)
 	{
 		n = n + 48;
 		write(1, &n, 1);
@@ -40,7 +40,7 @@ int	ft_len_hexa(unsigned long n)
 	int			count;
 
 	count = 0;
-	if (n >= 0 && n < 16)
+	if (n < 16)
 		return (1);
 	while (n != 0)
 	{

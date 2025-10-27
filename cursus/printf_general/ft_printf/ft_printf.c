@@ -40,5 +40,5 @@ int	ft_printf(char const *string, ...)
 int main()
 {
 	int a = 5;
-	ft_printf("La addres de la variable a=%d es :%p",a,&a);
+	ft_printf("La addres de la variable a=%d es:%p",a,&a);
 }
