@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	ft_printf(char const *string, ...)
 {
@@ -23,16 +24,14 @@ int	ft_printf(char const *string, ...)
 	va_start(args, string);
 	while (string[i])
 	{
-		if(string[i]=='%')
+		if(string[i] == '%')
 		{
 			count++;
 			i++;
 			ft_cspdiux(string[i], args);
 		}
 		else
-		{
 			write(1, &string[i], 1);
-		}
 		i++;
 	}
 	va_end(args);
@@ -40,7 +39,6 @@ int	ft_printf(char const *string, ...)
 }
 int main()
 {
-	char *a = "hola";
-	// int a = 5;
-	ft_printf("hola %s", a);
+	int a = 5;
+	ft_printf("La addres de la variable a=%d es :%p",a,&a);
 }

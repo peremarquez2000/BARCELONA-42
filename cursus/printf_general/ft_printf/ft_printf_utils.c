@@ -12,12 +12,14 @@
 
 #include "ft_printf.h"
 
-void ft_cspdiux(char c, va_list args)
+void	ft_cspdiux(char c, va_list args)
 {
-	//ME FALTA %p, %u, %x, %X, %%
+	//ME FALTA %p
 	char ch;
 	char *string;
 	int	integer;
+	unsigned int ui;
+	unsigned long ul;
 	//args es la lsita con todos los elementos  tot = tot + va_arg(args, int);
 	if(c == 'c')
 	{
@@ -36,9 +38,32 @@ void ft_cspdiux(char c, va_list args)
 		integer = va_arg(args, int);
 		ft_putnbr_fd(integer, 1);
 	}
+	else if(c == 'u')
+	{
+		ui = va_arg(args, unsigned int);
+		ft_putnbr_ui_fd(ui, 1);
+	}
+	else if(c == 'x')
+	{
+		ui = va_arg(args, unsigned int);
+		ft_print_from_ui_to_hexa(ui,0);
 
-	(void)c;
-	(void)args;
+	}
+	else if(c == 'X')
+	{
+		ui = va_arg(args, unsigned int);
+		ft_print_from_ui_to_hexa(ui,1);
+	}
+	else if (c == 'p')
+	{
+		ul = va_arg(args, unsigned long);
+		ft_hexa_adress(ul);
+
+	}
+	else if(c == '%')
+		write(1, "%", 1);
+
+
 	return;
 }
 
