@@ -30,7 +30,9 @@ static int	is_in_set(char c, char *set)
 static int	ft_begin_set(char *s, char *set)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 0;
 	while (s[i])
 	{

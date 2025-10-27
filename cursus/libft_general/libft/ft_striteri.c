@@ -9,9 +9,8 @@
 /*   Updated: 2025/09/29 17:52:12 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
+
 /*
 void	f_dummy(unsigned int i, char *c) 
 // no acaba de ser valida la fnucion estas paando el s[3][3] en el caso i = 3 

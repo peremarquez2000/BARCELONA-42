@@ -9,8 +9,6 @@
 /*   Updated: 2025/09/29 17:52:12 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
 
 static char	*ft_0_malloc(void)

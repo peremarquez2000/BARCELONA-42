@@ -9,9 +9,6 @@
 /*   Updated: 2025/09/29 17:52:12 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "libft.h"
 
 static int	n_substr(char const *s, char c)
@@ -39,23 +36,23 @@ static void	ft_fill_matrix(char **m, const char *s, char c)
 {
 	int	i;
 	int	j;
-	int	inicio;
-	int	final;
+	int	start;
+	int	end;
 
-	inicio = 0;
-	final = 0;
+	start = 0;
+	end = 0;
 	i = 0;
 	j = 0;
 	while (s[i])
 	{
 		if (s[i] != c && i == 0)
-			inicio = 0;
+			start = 0;
 		else if (s[i] != c && s[i - 1] == c)
-			inicio = i;
+			start = i;
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == (char)0))
 		{
-			final = i;
-			m[j] = ft_substr(s, inicio, final - inicio + 1);
+			end = i;
+			m[j] = ft_substr(s, start, end - start + 1);
 			j++;
 		}
 		i++;

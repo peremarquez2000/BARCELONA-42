@@ -9,10 +9,6 @@
 /*   Updated: 2025/09/26 11:06:47 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)

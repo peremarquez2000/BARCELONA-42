@@ -14,17 +14,15 @@
 #include <string.h>
 #include <stdio.h>
 
-int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
 {
 	unsigned int	i;
 
 	i = 0;
 	while ((s1[i] || s2[i]) && i < n)
 	{
-		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
-		{
-			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
-		}
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
 		i++;
 	}
 	return (0);
@@ -32,13 +30,11 @@ int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
 /*
 int	main(void)
 {
-	//int a = 5;
-	//char c1[100] = "hola que blbas";
-	//char c2[100] = "hola que tal";
+	int a = 5;
+	char c1[100] = "hola que blbas";
+	char c2[100] = "hola que tal";
 	
-	//printf("%d\n",strncmp(c1, c2, a));
-	//printf("%d\n",ft_strncmp(c1, c2, a));
-	printf("FT=%d\n",ft_strncmp("aest\200", "test\0", 6));
-	printf("NORMAL=%d\n",strncmp("hest\200", "test\0", 6));
+	printf("%d\n",strncmp(c1, c2, a));
+	printf("%d\n",ft_strncmp(c1, c2, a));
 }
-	*/
+*/

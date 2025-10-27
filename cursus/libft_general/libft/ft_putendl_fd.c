@@ -9,7 +9,6 @@
 /*   Updated: 2025/10/01 10:52:59 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
 #include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)

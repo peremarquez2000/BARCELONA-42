@@ -9,13 +9,14 @@
 /*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <string.h>
+#include "libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
 
+	if (!dest && !src)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{
@@ -51,5 +52,11 @@ int main()
         printf( "puntero %s\n", puntero1 );
 
 	return 0;
+}
+*/
+/*
+int main()
+{
+	ft_memcpy(((void*)0), ((void*)0), 3);
 }
 */

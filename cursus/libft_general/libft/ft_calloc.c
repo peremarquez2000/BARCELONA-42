@@ -9,10 +9,7 @@
 /*   Updated: 2025/10/01 11:24:55 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
-#include <stdint.h>
-#include <stdio.h>
 
 static int	ft_overflow(size_t nmemb, size_t size)
 {

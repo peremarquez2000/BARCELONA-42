@@ -12,10 +12,10 @@
 
 #include <unistd.h>
 #include <stdio.h>
-//#include <bsd/string.h>
+#include <bsd/string.h>
 #include "libft.h"
 
-static void	ft_v_strcat(char *s1, const char *s2, size_t size)
+static void	ft_v_strcat(char *s1, char *s2, size_t size)
 {
 	size_t	i;
 	size_t	j;
@@ -39,14 +39,14 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	size_t	len_src;
 
 	len_dest = (size_t)ft_strlen(dest);
-	len_src = (size_t)ft_strlen(src);
+	len_src = (size_t)ft_strlen((char *)src);
 	if (size == 0)
 	{
 		return ((size_t)(len_src));
 	}
 	if (size > len_dest)
 	{
-		ft_v_strcat(dest, src, size);
+		ft_v_strcat(dest, (char *)src, size);
 		return ((len_src + len_dest));
 	}
 	else

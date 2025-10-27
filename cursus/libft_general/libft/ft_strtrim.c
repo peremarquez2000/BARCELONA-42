@@ -9,8 +9,6 @@
 /*   Updated: 2025/09/29 17:52:12 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
 
 static int	is_in_set(char c, char *set)
@@ -58,22 +56,22 @@ static int	ft_end_set(char *s, char *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		i;
-	int		principio;
-	int		final;
+	int		start;
+	int		end;
 	char	*ptr;
 
 	i = 0;
-	principio = 0;
-	final = 0;
-	principio = ft_begin_set((char *)s1, (char *)set);
-	final = ft_end_set((char *)s1, (char *)set);
-	ptr = malloc(((final - principio + 1) + 1) * sizeof(char));
+	start = 0;
+	end = 0;
+	start = ft_begin_set((char *)s1, (char *)set);
+	end = ft_end_set((char *)s1, (char *)set);
+	ptr = malloc(((end - start + 1) + 1) * sizeof(char));
 	if (ptr == (char *)0)
 		return (ptr);
 	i = 0;
-	while (i < final - principio + 1)
+	while (i < end - start + 1)
 	{
-		ptr[i] = s1[principio + i];
+		ptr[i] = s1[start + i];
 		i++;
 	}
 	ptr[i] = (char)0;

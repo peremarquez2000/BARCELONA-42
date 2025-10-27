@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 10:41:14 by pemarque          #+#    #+#             */
-/*   Updated: 2025/10/01 10:45:28 by pemarque         ###   ########.fr       */
+/*   Created: 2025/08/19 13:22:43 by pemarque          #+#    #+#             */
+/*   Updated: 2025/09/25 13:08:23 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	write(fd, &c, 1);
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }
 /*
 int main(void)
 {
-    ft_putchar_fd('a',1);
+	char *a = "hola";
+	t_list *lst;
+	lst = ft_lstnew(a);
+	
+	printf("\n%p", lst->content);
+	printf("\n%s", (char *)lst->content);
+	printf("\n%p", a);
 }
 */

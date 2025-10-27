@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                      		    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 10:41:14 by pemarque          #+#    #+#             */
-/*   Updated: 2025/10/01 10:45:28 by pemarque         ###   ########.fr       */
+/*   Created: 2025/08/19 13:22:43 by pemarque          #+#    #+#             */
+/*   Updated: 2025/09/25 13:08:23 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	write(fd, &c, 1);
+	if (lst == NULL || del == NULL)
+		return ;
+	del(lst->content);
+	free(lst);
 }
 /*
 int main(void)
 {
-    ft_putchar_fd('a',1);
+	t_list * l =  ft_lstnew(malloc(1));
+	ft_lstdelone(l, free); l = 0;
+	showLeaks();
 }
+	signal(SIGSEGV, sigsegv); (void)iTest;
+	title("ft_lstdelone\t: ");
+
+	t_list * l =  ft_lstnew(malloc(1));
+	ft_lstdelone(l, free); l = 0;
+	showLeaks();
+	write(1, "\n", 1);
+	return (0);
 */
