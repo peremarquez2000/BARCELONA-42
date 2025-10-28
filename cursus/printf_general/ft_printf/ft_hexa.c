@@ -87,12 +87,13 @@ int	ft_hexa_adress(unsigned long n)
 	int				len;
 	int				i;
 
+	
 	len = ft_len_hexa(n);
 	hexa_array = (unsigned long *)malloc(len * sizeof(unsigned long));
-	if (!hexa_array)
+	if (!hexa_array || n == 0)
 	{
 		free(hexa_array);
-		write(1,"(nil)",5);
+		write(1,"(nil)", 5);
 		return(5);
 	}
 	i = 0;
