@@ -92,7 +92,8 @@ int	ft_hexa_adress(unsigned long n)
 	if (!hexa_array)
 	{
 		free(hexa_array);
-		return(0);
+		write(1,"(nil)",5);
+		return(5);
 	}
 	i = 0;
 	quo = 17;
@@ -103,20 +104,12 @@ int	ft_hexa_adress(unsigned long n)
 		n = quo;
 		hexa_array[i++] = resi;
 	}
-	if(len == 15)
-	{
-		write(1,"0",1);
-		len++;
-	}
-	else if (len < 14)
-	{
-		write(1,"0x",2);
-		len = len + 2;
-	}
+	write(1,"0x",2);
 	i = len - 1;
 	while (i >= 0)
 		ft_hexa(hexa_array[i--], 0);
-	return (len);
+	free(hexa_array);
+	return (len + 2);
 }
 
 
