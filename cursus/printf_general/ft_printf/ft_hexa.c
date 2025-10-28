@@ -67,7 +67,7 @@ void	ft_fill_hexa_array(unsigned long *hexa_array, unsigned long n)
 	return ;
 }
 
-int	ft_print_from_ul_to_hexa(unsigned long n, int flag)
+int	ft_from_ul_to_hexa(unsigned long n, int flag)
 {
 	unsigned long	*hexa_array;
 	int				len;
@@ -114,13 +114,13 @@ int	ft_hexa_adress(unsigned long n)
 {
 	unsigned long adr_nb;
 	adr_nb = (unsigned long) addr;
-	
+
 	ft_newf(adr_nb);
 } */
-/* 
+/*
 int	main(void)
 {
-	
+
 	// char c[20] = "Bonjour les amin";
 	int c = 5;
 	// ft_print_memory(c,48);

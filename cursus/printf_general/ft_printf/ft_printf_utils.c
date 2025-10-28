@@ -12,25 +12,6 @@
 
 #include "ft_printf.h"
 
-static int	ft_exp(int number, int times)
-{
-	int	i;
-	int	aux;
-
-	i = 1;
-	aux = number;
-	while (i < times)
-	{
-		number = number * aux;
-		i++;
-	}
-	if (times == 0)
-	{
-		number = 1;
-	}
-	return (number);
-}
-
 int	ft_digits_ui(unsigned int number)
 {
 	int	i;
@@ -64,32 +45,23 @@ int	ft_digits(int number)
 
 void	ft_putnbr_ui_fd(unsigned int n, int fd)
 {
-	int		i;
 	char	c_number;
 
-	i = ft_digits_ui(n) - 1;
-	while (i >= 0)
-	{
-		c_number = (n / ft_exp(10, i)) + '0';
-		n = n % ft_exp(10, i);
-		write(fd, &c_number, 1);
-		i--;
-	}
+	if (n / 10 != 0)
+		ft_putnbr_ui_fd(n / 10, fd);
+	c_number = (n % 10) + '0';
+	write(fd, &c_number, 1);
 }
 
-int	ft_cspdiux(char c, va_list args)
+int	ft_cs(char c, va_list args)
 {
-	char			ch;
-	char			*string;
-	int				integer;
-	unsigned int	ui;
-	unsigned long	ul;
+	char	ch;
+	char	*string;
 
 	if (c == 'c')
 	{
 		ch = (char)va_arg(args, int);
-		write(1, &ch, 1);
-		return (1);
+		return (write(1, &ch, 1));
 	}
 	else if (c == 's')
 	{
@@ -99,7 +71,17 @@ int	ft_cspdiux(char c, va_list args)
 		ft_putstr_fd(string, 1);
 		return (ft_strlen(string));
 	}
-	else if (c == 'd' || c == 'i')
+	return (0);
+}
+
+int	ft_cspdiux(char c, va_list args)
+{
+	int				integer;
+	unsigned int	ui;
+
+	if (c == 'c' || c == 's')
+		return (ft_cs(c, args));
+	if (c == 'd' || c == 'i')
 	{
 		integer = va_arg(args, int);
 		ft_putnbr_fd(integer, 1);
@@ -111,30 +93,16 @@ int	ft_cspdiux(char c, va_list args)
 		ft_putnbr_ui_fd(ui, 1);
 		return (ft_digits_ui(ui));
 	}
-	else if (c == 'x')
-	{
-		ul = va_arg(args, unsigned long);
-		return (ft_print_from_ul_to_hexa(ul, 0));
-	}
-	else if (c == 'X')
-	{
-		ul = va_arg(args, unsigned long);
-		return (ft_print_from_ul_to_hexa(ul, 1));
-	}
+	else if (c == 'x' || c == 'X')
+		return (ft_from_ul_to_hexa(va_arg(args, unsigned long), c == 'X'));
 	else if (c == 'p')
-	{
-		ul = va_arg(args, unsigned long);
-		return (ft_hexa_adress(ul));
-	}
+		return (ft_hexa_adress(va_arg(args, unsigned long)));
 	else if (c == '%')
-	{
-		write(1, "%", 1);
-		return (1);
-	}
+		return (write(1, "%", 1));
 	return (0);
 }
 
-/* 
+/*
 int	main(void)
 {
 	ft_putnbr_ui_fd(2147489999,1);
