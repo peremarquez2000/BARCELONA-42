@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_memory.c                                  :+:      :+:    :+:   */
+/*   ft_hexa.c                          		        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_hexa(unsigned int n, int flag)
+void	ft_hexa(unsigned long n, int flag)
 {
 	if (n <= 9)
 	{
@@ -49,22 +49,12 @@ int	ft_len_hexa(unsigned long n)
 	return (count);
 }
 
-int	ft_print_from_ui_to_hexa(unsigned int n, int flag)
+void	ft_fill_hexa_array(unsigned long *hexa_array, unsigned long n)
 {
-	unsigned int	quo;
-	unsigned int	resi;
-	unsigned int	*hexa_array;
-	int				len;
+	unsigned long	quo;
+	unsigned long	resi;
 	int				i;
 
-	len = ft_len_hexa(n);
-	hexa_array = (unsigned int *)malloc(len * sizeof(unsigned int));
-	if (!hexa_array)
-	{
-		free(hexa_array);
-		write(1, "(nil)", 5);
-		return (5);
-	}
 	i = 0;
 	quo = 17;
 	while (quo != 0)
@@ -74,6 +64,23 @@ int	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 		n = quo;
 		hexa_array[i++] = resi;
 	}
+	return ;
+}
+
+int	ft_print_from_ul_to_hexa(unsigned long n, int flag)
+{
+	unsigned long	*hexa_array;
+	int				len;
+	int				i;
+
+	len = ft_len_hexa(n);
+	hexa_array = (unsigned long *)malloc(len * sizeof(unsigned long));
+	if (!hexa_array)
+	{
+		free(hexa_array);
+		return (write(1, "(nil)", 5));
+	}
+	ft_fill_hexa_array(hexa_array, n);
 	i = len - 1;
 	while (i >= 0)
 		ft_hexa(hexa_array[i--], flag);
@@ -83,8 +90,6 @@ int	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 
 int	ft_hexa_adress(unsigned long n)
 {
-	unsigned long	quo;
-	unsigned long	resi;
 	unsigned long	*hexa_array;
 	int				len;
 	int				i;
@@ -94,18 +99,9 @@ int	ft_hexa_adress(unsigned long n)
 	if (!hexa_array || n == 0)
 	{
 		free(hexa_array);
-		write(1, "(nil)", 5);
-		return (5);
+		return (write(1, "(nil)", 5));
 	}
-	i = 0;
-	quo = 17;
-	while (quo != 0)
-	{
-		quo = n / 16;
-		resi = n % 16;
-		n = quo;
-		hexa_array[i++] = resi;
-	}
+	ft_fill_hexa_array(hexa_array, n);
 	write(1, "0x", 2);
 	i = len - 1;
 	while (i >= 0)

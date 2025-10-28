@@ -113,13 +113,13 @@ int	ft_cspdiux(char c, va_list args)
 	}
 	else if (c == 'x')
 	{
-		ui = va_arg(args, unsigned int);
-		return (ft_print_from_ui_to_hexa(ui, 0));
+		ul = va_arg(args, unsigned long);
+		return (ft_print_from_ul_to_hexa(ul, 0));
 	}
 	else if (c == 'X')
 	{
-		ui = va_arg(args, unsigned int);
-		return (ft_print_from_ui_to_hexa(ui, 1));
+		ul = va_arg(args, unsigned long);
+		return (ft_print_from_ul_to_hexa(ul, 1));
 	}
 	else if (c == 'p')
 	{
