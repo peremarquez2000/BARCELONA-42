@@ -79,7 +79,7 @@ void	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 }
 
 
-void	ft_hexa_adress(unsigned long n)
+int	ft_hexa_adress(unsigned long n)
 {
 	unsigned long	quo;
 	unsigned long	resi;
@@ -92,7 +92,7 @@ void	ft_hexa_adress(unsigned long n)
 	if (!hexa_array)
 	{
 		free(hexa_array);
-		return ;
+		return(0);
 	}
 	i = 0;
 	quo = 17;
@@ -106,12 +106,17 @@ void	ft_hexa_adress(unsigned long n)
 	if(len == 15)
 	{
 		write(1,"0",1);
+		len++;
 	}
 	else if (len < 14)
+	{
 		write(1,"0x",2);
+		len = len + 2;
+	}
 	i = len - 1;
 	while (i >= 0)
 		ft_hexa(hexa_array[i--], 0);
+	return (len);
 }
 
 

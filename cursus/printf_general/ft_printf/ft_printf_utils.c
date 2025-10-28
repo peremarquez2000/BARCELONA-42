@@ -106,7 +106,7 @@ int	ft_cspdiux(char c, va_list args)
 	else if (c == 'p')
 	{
 		ul = va_arg(args, unsigned long);
-		ft_hexa_adress(ul);
+		return (ft_hexa_adress(ul));
 
 	}
 	else if(c == '%')
