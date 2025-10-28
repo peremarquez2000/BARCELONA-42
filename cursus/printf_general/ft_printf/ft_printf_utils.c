@@ -12,6 +12,53 @@
 
 #include "ft_printf.h"
 
+static int	ft_exp(int number, int times)
+{
+	int	i;
+	int	aux;
+
+	i = 1;
+	aux = number;
+	while (i < times)
+	{
+		number = number * aux;
+		i++;
+	}
+	if (times == 0)
+	{
+		number = 1;
+	}
+	return (number);
+}
+
+int	ft_digits(unsigned int number)
+{
+	int	i;
+
+	i = 1;
+	while (number / 10 != 0)
+	{
+		number = number / 10;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_putnbr_ui_fd(unsigned int n, int fd)
+{
+	int		i;
+	char	c_number;
+
+	i = ft_digits(n) - 1;
+	while (i >= 0)
+	{
+		c_number = (n / ft_exp(10, i)) + '0';
+		n = n % ft_exp(10, i);
+		write(fd, &c_number, 1);
+		i--;
+	}
+}
+
 int	ft_cspdiux(char c, va_list args)
 {
 	char ch;
@@ -19,7 +66,6 @@ int	ft_cspdiux(char c, va_list args)
 	int	integer;
 	unsigned int ui;
 	unsigned long ul;
-	//args es la lsita con todos los elementos  tot = tot + va_arg(args, int);
 	if(c == 'c')
 	{
 		ch = (char)va_arg(args, int);
@@ -70,3 +116,10 @@ int	ft_cspdiux(char c, va_list args)
 	return (0);
 }
 
+
+/* 
+int	main(void)
+{
+	ft_putnbr_ui_fd(2147489999,1);
+	return (0);
+} */

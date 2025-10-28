@@ -7,16 +7,15 @@
 int     ft_printf(char const *, ...);
 
 //FT_PRINT_UTILS
-int    ft_cspdiux(char c, va_list args);
+int     ft_cspdiux(char c, va_list args);
+int     ft_digits(unsigned int number);
+void	ft_putnbr_ui_fd(unsigned int n, int fd);
+
 
 //FT_HEXA
 void    ft_hexa(unsigned int n, int flag);
 int     ft_len_hexa(unsigned long n);
 void    ft_print_from_ui_to_hexa(unsigned int n, int flag);
 void	ft_hexa_adress(unsigned long n);
-
-
-//FT_PUTNBR_UI
-void	ft_putnbr_ui_fd(unsigned int n, int fd);
 
 #endif

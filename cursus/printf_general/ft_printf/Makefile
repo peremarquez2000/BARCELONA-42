@@ -18,7 +18,7 @@ NAME = libftprintf.a
 
 # ===== FILE LISTS =====
 
-SRCS = ft_hexa.c ft_printf_utils.c ft_printf.c ft_putnbr_ui.c
+SRCS = ft_hexa.c ft_printf_utils.c ft_printf.c
 OBJS = $(SRCS:%.c=%.o)
 
 LIBFT = libft/libft.a
