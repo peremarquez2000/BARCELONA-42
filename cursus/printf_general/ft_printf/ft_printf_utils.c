@@ -14,7 +14,6 @@
 
 void	ft_cspdiux(char c, va_list args)
 {
-	//ME FALTA %p
 	char ch;
 	char *string;
 	int	integer;

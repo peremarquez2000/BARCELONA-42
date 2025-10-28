@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Created: 2025/10/01 10:41:14 by pemarque          #+#    #+#             */
+/*   Updated: 2025/10/01 10:52:59 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <stdio.h>
-
-int	ft_printf(char const *string, ...)
+void	ft_putstr_fd(char *c, int fd)
 {
-	va_list	args;
-	int		i;
-	int		count;
+	int	i;
 
 	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
+	while (c[i])
 	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
+		write(fd, &c[i], 1);
 		i++;
 	}
-	va_end(args);
-	return (0);
 }
-/* int main()
+/*
+int main(void)
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+    ft_putstr_fd("hola que tal",1);
+}
+    */

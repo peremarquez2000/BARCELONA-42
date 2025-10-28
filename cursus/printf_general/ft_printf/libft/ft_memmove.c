@@ -1,44 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:26:20 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <stdio.h>
-
-int	ft_printf(char const *string, ...)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	va_list	args;
-	int		i;
-	int		count;
+	size_t	i;
 
+	if (!dest && !src)
+		return (NULL);
 	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
+	if (dest < src)
 	{
-		if(string[i] == '%')
+		while (i < n)
 		{
-			count++;
+			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
 			i++;
-			ft_cspdiux(string[i], args);
 		}
-		else
-			write(1, &string[i], 1);
-		i++;
 	}
-	va_end(args);
-	return (0);
+	else
+	{
+		i++;
+		while (i <= n)
+		{
+			((unsigned char *)dest)[n - i] = ((unsigned char *)src)[n - i];
+			i++;
+		}
+	}
+	return (dest);
 }
-/* int main()
+/*
+int main()
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+	char str1[] = "abcdefg";
+	char str2[] = "abcdefg";
+	//printf("%s\n", str1);
+	ft_memmove(str1, str1 + 2, 3);
+	memmove(str2, str2 + 2, 3);
+	printf("%s\n", str1);
+	printf("%s\n", str2);
+	
+}
+*/

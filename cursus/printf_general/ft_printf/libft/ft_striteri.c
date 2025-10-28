@@ -1,44 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                        :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Created: 2025/09/29 17:34:50 by pemarque          #+#    #+#             */
+/*   Updated: 2025/09/29 17:52:12 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <stdio.h>
-
-int	ft_printf(char const *string, ...)
+/*
+void	f_dummy(unsigned int i, char *c) 
+// no acaba de ser valida la fnucion estas paando el s[3][3] en el caso i = 3 
 {
-	va_list	args;
-	int		i;
-	int		count;
+	if(c[i] == 'c')
+	{
+		//printf("hey");
+		c[i] = 'a';
+	}
+}
+	*/
+
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	unsigned int		i;
 
 	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
+	while (s[i])
 	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
+		f(i, &s[i]);
 		i++;
 	}
-	va_end(args);
-	return (0);
 }
-/* int main()
+/*
+int	main()
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+	char s1[] = "ccc";
+	printf("\n%s\n",s1);
+	ft_striteri(s1,&f_dummy);
+	printf("\n%s\n",s1);
+
+}
+
+*/

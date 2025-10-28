@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Created: 2025/08/19 13:22:43 by pemarque          #+#    #+#             */
+/*   Updated: 2025/09/25 14:00:12 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_printf(char const *string, ...)
+int	ft_isalnum(int c)
 {
-	va_list	args;
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
-	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
-		i++;
-	}
-	va_end(args);
+	if (ft_isdigit(c) || ft_isalpha(c))
+		return (1);
 	return (0);
 }
-/* int main()
+/*
+int main(void)
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+	printf("%d",ft_isalnum('1'));
+	return (0);	
+}
+*/

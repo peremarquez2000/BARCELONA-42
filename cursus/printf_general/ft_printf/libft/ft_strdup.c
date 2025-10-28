@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Created: 2025/09/04 08:30:04 by pemarque          #+#    #+#             */
+/*   Updated: 2025/10/01 11:34:54 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_printf(char const *string, ...)
+char	*ft_strdup(char *src)
 {
-	va_list	args;
 	int		i;
-	int		count;
+	int		len;
+	char	*m;
 
 	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
+	while (src[i])
+		i++;
+	len = i;
+	m = malloc((len + 1) * sizeof(char));
+	if (m == (char *)0)
+		return ((char *)0);
+	i = 0;
+	while (i < len)
 	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
+		m[i] = src[i];
 		i++;
 	}
-	va_end(args);
-	return (0);
+	m[i] = (char)0;
+	return (m);
 }
-/* int main()
+/*
+int	main(void)
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+	char*s1 = "hola que tal\n";
+	printf("strdup=%s", strdup(s1));
+	printf("ft_strdup=%s", ft_strdup(s1));
+}
+*/

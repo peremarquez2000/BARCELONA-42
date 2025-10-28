@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                      		            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Created: 2025/08/19 13:22:43 by pemarque          #+#    #+#             */
+/*   Updated: 2025/09/25 13:08:23 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <unistd.h>
 #include <stdio.h>
+#include "libft.h"
 
-int	ft_printf(char const *string, ...)
+t_list	*ft_lstlast(t_list *lst)
 {
-	va_list	args;
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
+	while (lst->next != NULL)
 	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
-		i++;
+		lst = lst->next;
 	}
-	va_end(args);
-	return (0);
+	return (lst);
 }
-/* int main()
+/*
+int main(void)
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+	char *a = "hola";
+	char *b = "adeu";
+	char *c = "bombo";
+	t_list *p1;
+	t_list *p2;
+	t_list *p3;
+	p1 = ft_lstnew(a);
+	p2 = ft_lstnew(b);
+	p3 = ft_lstnew(c);
+	p2->next = p3;
+	ft_lstadd_front(&p2,p1);
+	
+	printf("\n%s", (char *)ft_lstlast(p1)->content);
+
+
+}
+*/

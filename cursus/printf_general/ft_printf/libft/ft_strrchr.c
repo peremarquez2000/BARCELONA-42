@@ -1,44 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:05:29 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <stdio.h>
-
-int	ft_printf(char const *string, ...)
+char	*ft_strrchr(const char *s, int c)
 {
-	va_list	args;
 	int		i;
-	int		count;
+	char	*ptr;
 
+	ptr = (char *)0;
 	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
+	while (i <= ft_strlen(s))
 	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
+		if ((unsigned char)s[i] == (unsigned char)c)
+			ptr = (char *)&s[i];
 		i++;
 	}
-	va_end(args);
-	return (0);
+	return (ptr);
 }
-/* int main()
+/*
+int	main()
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+	char *s = "hol que tal";
+	printf("%s\n",strrchr(s,'o'));
+	printf("%s\n",ft_strrchr(s,'o'));
+}
+*/

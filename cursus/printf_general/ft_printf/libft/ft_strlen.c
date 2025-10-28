@@ -1,44 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 17:40:40 by pemarque          #+#    #+#             */
-/*   Updated: 2025/09/26 13:11:53 by pemarque         ###   ########.fr       */
+/*   Created: 2025/08/28 19:58:56 by pemarque          #+#    #+#             */
+/*   Updated: 2025/09/25 14:03:18 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_printf(char const *string, ...)
+int	ft_strlen(const char *str)
 {
-	va_list	args;
-	int		i;
-	int		count;
+	int	i;
 
 	i = 0;
-	count = 0;
-	va_start(args, string);
-	while (string[i])
-	{
-		if(string[i] == '%')
-		{
-			count++;
-			i++;
-			ft_cspdiux(string[i], args);
-		}
-		else
-			write(1, &string[i], 1);
+	while (str[i])
 		i++;
-	}
-	va_end(args);
+	return (i);
+}
+/*
+int	main(void)
+{
+	
+	printf("%d", ft_strlen("holsdaa1a"));
 	return (0);
 }
-/* int main()
-{
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
-} */
+*/
