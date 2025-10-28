@@ -30,6 +30,7 @@ INCLUDE = ft_printf.h
 all: libft $(NAME)
 
 $(NAME): $(ALL_OBJS) $(LIBFT) $(INCLUDE) Makefile
+	cp $(LIBFT) $(NAME)
 	ar -rcs $(NAME) $(ALL_OBJS)
 
 $(LIBFT):
