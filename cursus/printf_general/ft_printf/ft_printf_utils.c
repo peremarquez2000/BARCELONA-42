@@ -79,64 +79,60 @@ void	ft_putnbr_ui_fd(unsigned int n, int fd)
 
 int	ft_cspdiux(char c, va_list args)
 {
-	char ch;
-	char *string;
-	int	integer;
-	unsigned int ui;
-	unsigned long ul;
-	if(c == 'c')
+	char			ch;
+	char			*string;
+	int				integer;
+	unsigned int	ui;
+	unsigned long	ul;
+
+	if (c == 'c')
 	{
 		ch = (char)va_arg(args, int);
 		write(1, &ch, 1);
 		return (1);
 	}
-
-	else if(c == 's')
+	else if (c == 's')
 	{
 		string = va_arg(args, char *);
-		if(!string)
+		if (!string)
 			string = "(null)";
 		ft_putstr_fd(string, 1);
 		return (ft_strlen(string));
 	}
-
-	else if(c == 'd' || c == 'i')
+	else if (c == 'd' || c == 'i')
 	{
 		integer = va_arg(args, int);
 		ft_putnbr_fd(integer, 1);
-		return(ft_digits(integer));
+		return (ft_digits(integer));
 	}
-	else if(c == 'u')
+	else if (c == 'u')
 	{
 		ui = va_arg(args, unsigned int);
 		ft_putnbr_ui_fd(ui, 1);
-		return(ft_digits_ui(ui));
+		return (ft_digits_ui(ui));
 	}
-	else if(c == 'x')
+	else if (c == 'x')
 	{
 		ui = va_arg(args, unsigned int);
-		return(ft_print_from_ui_to_hexa(ui,0));
-
+		return (ft_print_from_ui_to_hexa(ui, 0));
 	}
-	else if(c == 'X')
+	else if (c == 'X')
 	{
 		ui = va_arg(args, unsigned int);
-		return(ft_print_from_ui_to_hexa(ui,1));
+		return (ft_print_from_ui_to_hexa(ui, 1));
 	}
 	else if (c == 'p')
 	{
 		ul = va_arg(args, unsigned long);
 		return (ft_hexa_adress(ul));
-
 	}
-	else if(c == '%')
+	else if (c == '%')
 	{
 		write(1, "%", 1);
 		return (1);
 	}
 	return (0);
 }
-
 
 /* 
 int	main(void)

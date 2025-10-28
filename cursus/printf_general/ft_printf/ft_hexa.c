@@ -62,8 +62,8 @@ int	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 	if (!hexa_array)
 	{
 		free(hexa_array);
-		write(1,"(nil)", 5);
-		return(5);
+		write(1, "(nil)", 5);
+		return (5);
 	}
 	i = 0;
 	quo = 17;
@@ -81,7 +81,6 @@ int	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 	return (len);
 }
 
-
 int	ft_hexa_adress(unsigned long n)
 {
 	unsigned long	quo;
@@ -90,14 +89,13 @@ int	ft_hexa_adress(unsigned long n)
 	int				len;
 	int				i;
 
-	
 	len = ft_len_hexa(n);
 	hexa_array = (unsigned long *)malloc(len * sizeof(unsigned long));
 	if (!hexa_array || n == 0)
 	{
 		free(hexa_array);
-		write(1,"(nil)", 5);
-		return(5);
+		write(1, "(nil)", 5);
+		return (5);
 	}
 	i = 0;
 	quo = 17;
@@ -108,15 +106,13 @@ int	ft_hexa_adress(unsigned long n)
 		n = quo;
 		hexa_array[i++] = resi;
 	}
-	write(1,"0x",2);
+	write(1, "0x", 2);
 	i = len - 1;
 	while (i >= 0)
 		ft_hexa(hexa_array[i--], 0);
 	free(hexa_array);
 	return (len + 2);
 }
-
-
 
 /* void	ft_hexa_adress(void *addr)
 {
