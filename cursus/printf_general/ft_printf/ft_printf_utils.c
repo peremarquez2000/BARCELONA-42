@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_cspdiux(char c, va_list args)
+int	ft_cspdiux(char c, va_list args)
 {
 	char ch;
 	char *string;
@@ -23,13 +23,17 @@ void	ft_cspdiux(char c, va_list args)
 	if(c == 'c')
 	{
 		ch = (char)va_arg(args, int);
-		 write(1, &ch, 1);
+		write(1, &ch, 1);
+		return (1);
 	}
 
 	else if(c == 's')
 	{
 		string = va_arg(args, char *);
+		if(!string)
+			string = "(null)";
 		ft_putstr_fd(string, 1);
+		return (ft_strlen(string));
 	}
 
 	else if(c == 'd' || c == 'i')
@@ -63,6 +67,6 @@ void	ft_cspdiux(char c, va_list args)
 		write(1, "%", 1);
 
 
-	return;
+	return (0);
 }
 

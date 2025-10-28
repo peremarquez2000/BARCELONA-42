@@ -7,7 +7,7 @@
 int     ft_printf(char const *, ...);
 
 //FT_PRINT_UTILS
-void    ft_cspdiux(char c, va_list args);
+int    ft_cspdiux(char c, va_list args);
 
 //FT_HEXA
 void    ft_hexa(unsigned int n, int flag);

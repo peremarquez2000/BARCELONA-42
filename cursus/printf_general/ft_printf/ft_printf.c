@@ -24,14 +24,16 @@ int	ft_printf(char const *string, ...)
 	va_start(args, string);
 	while (string[i])
 	{
-		count++;
 		if(string[i] == '%')
 		{
 			i++;
-			ft_cspdiux(string[i], args);
+			count += ft_cspdiux(string[i], args);
 		}
 		else
+		{
 			write(1, &string[i], 1);
+			count++;
+		}
 		i++;
 	}
 	va_end(args);
@@ -39,6 +41,6 @@ int	ft_printf(char const *string, ...)
 }
 /* int main()
 {
-	int a = 5;
-	ft_printf("La addres de la variable a=%d es:%p",a,&a);
+	int *a = "hola";
+	ft_printf("La string dice %s", a);
 } */
