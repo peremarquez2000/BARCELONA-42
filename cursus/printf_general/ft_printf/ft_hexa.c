@@ -49,7 +49,7 @@ int	ft_len_hexa(unsigned long n)
 	return (count);
 }
 
-void	ft_print_from_ui_to_hexa(unsigned int n, int flag)
+int	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 {
 	unsigned int	quo;
 	unsigned int	resi;
@@ -59,10 +59,11 @@ void	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 
 	len = ft_len_hexa(n);
 	hexa_array = (unsigned int *)malloc(len * sizeof(unsigned int));
-	if (!hexa_array)
+	if (!hexa_array || n == 0)
 	{
 		free(hexa_array);
-		return ;
+		write(1,"(nil)", 5);
+		return(5);
 	}
 	i = 0;
 	quo = 17;
@@ -76,6 +77,7 @@ void	ft_print_from_ui_to_hexa(unsigned int n, int flag)
 	i = len - 1;
 	while (i >= 0)
 		ft_hexa(hexa_array[i--], flag);
+	return (len);
 }
 
 

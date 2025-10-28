@@ -31,7 +31,7 @@ static int	ft_exp(int number, int times)
 	return (number);
 }
 
-int	ft_digits(unsigned int number)
+int	ft_digits_ui(unsigned int number)
 {
 	int	i;
 
@@ -44,12 +44,30 @@ int	ft_digits(unsigned int number)
 	return (i);
 }
 
+int	ft_digits(int number)
+{
+	int	count;
+
+	count = 1;
+	if (number < 0)
+	{
+		number = -number;
+		count++;
+	}
+	while (number / 10 != 0)
+	{
+		number = number / 10;
+		count++;
+	}
+	return (count);
+}
+
 void	ft_putnbr_ui_fd(unsigned int n, int fd)
 {
 	int		i;
 	char	c_number;
 
-	i = ft_digits(n) - 1;
+	i = ft_digits_ui(n) - 1;
 	while (i >= 0)
 	{
 		c_number = (n / ft_exp(10, i)) + '0';
@@ -86,22 +104,24 @@ int	ft_cspdiux(char c, va_list args)
 	{
 		integer = va_arg(args, int);
 		ft_putnbr_fd(integer, 1);
+		return(ft_digits(integer));
 	}
 	else if(c == 'u')
 	{
 		ui = va_arg(args, unsigned int);
 		ft_putnbr_ui_fd(ui, 1);
+		return(ft_digits_ui(ui));
 	}
 	else if(c == 'x')
 	{
 		ui = va_arg(args, unsigned int);
-		ft_print_from_ui_to_hexa(ui,0);
+		return(ft_print_from_ui_to_hexa(ui,0));
 
 	}
 	else if(c == 'X')
 	{
 		ui = va_arg(args, unsigned int);
-		ft_print_from_ui_to_hexa(ui,1);
+		return(ft_print_from_ui_to_hexa(ui,1));
 	}
 	else if (c == 'p')
 	{
@@ -110,9 +130,10 @@ int	ft_cspdiux(char c, va_list args)
 
 	}
 	else if(c == '%')
+	{
 		write(1, "%", 1);
-
-
+		return (1);
+	}
 	return (0);
 }
 
