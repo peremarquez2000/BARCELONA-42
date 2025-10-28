@@ -24,9 +24,9 @@ int	ft_printf(char const *string, ...)
 	va_start(args, string);
 	while (string[i])
 	{
+		count++;
 		if(string[i] == '%')
 		{
-			count++;
 			i++;
 			ft_cspdiux(string[i], args);
 		}
@@ -35,7 +35,7 @@ int	ft_printf(char const *string, ...)
 		i++;
 	}
 	va_end(args);
-	return (0);
+	return (count);
 }
 /* int main()
 {
