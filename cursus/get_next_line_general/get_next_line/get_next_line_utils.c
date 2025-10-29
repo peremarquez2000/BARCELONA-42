@@ -10,21 +10,97 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+#include <stdio.h>
 
-char *copia_plus_one(char *nl,int size, char c)
+int posicion_barra_n(char *buffer, int size)
 {
-    char *new_nl;
     int i;
-
     i = 0;
-    new_nl = malloc((size + 2)*sizeof(char));
+
     while (i < size)
+    {
+        if(buffer[i] == '\n')
+            return (i);
+        i++;
+    }
+    return (-1);
+}
+
+char *ft_tail(char *buffer, int size, int start)
+{
+    char *new_buff;
+    int corrector;
+
+    if(start >= size)
+        return (NULL);
+    corrector = start;
+    new_buff = (char *)malloc((size - start) * sizeof(char));
+    if (!new_buff)
+        return (NULL);
+    while (start <= size)
+    {
+        new_buff[start - corrector] = buffer[start];
+        start++;
+    }
+    return (new_buff);
+}
+
+
+ char *ft_guarda_contingut(char *nl,int nl_size, char *buffer, int end_position)
+{
+    int i;
+    i = 0;
+    char *new_nl;
+    new_nl = malloc((nl_size + end_position)*sizeof(char));
+    while (i < nl_size)
     {
         new_nl[i] = nl[i];
         i++;
     }
-    new_nl[i] = c;
-    new_nl[i + 1] = (char)0;
+    i = 0;
+    while (i <= end_position)
+    {
+        new_nl[i] = buffer[i];
+        i++;
+    }
     free(nl);
-    return (new_nl);
-}
+    return(new_nl);
+
+
+} 
+
+/* int main()
+{
+    char *str;
+    char *substr;
+    str = (char *)malloc(2*sizeof(char));
+    str[0] = 'a';
+    str[1] = '\n';
+    int posicion = posicion_barra_n(str, 2);
+
+    // printf("%d", posicion);
+
+
+    substr = ft_tail(str, 2 , posicion + 5);
+    printf("%s", substr);
+    // printf("%d", substr == NULL);
+} */
+
+/* int main()
+{
+    char *str;
+    char *substr;
+    str = (char *)malloc(2*sizeof(char));
+    str[0] = 'a';
+    str[1] = '\n';
+    int posicion = posicion_barra_n(str, 2);
+
+    // printf("%d", posicion);
+
+
+    substr = ft_tail(str, 2 , posicion + 5);
+    printf("%s", substr);
+    // printf("%d", substr == NULL);
+} */
+
+

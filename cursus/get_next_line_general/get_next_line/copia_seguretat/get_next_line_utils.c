@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pemarque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,17 +9,22 @@
 /*   Updated: 2025/10/01 20:00:49 by pemarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "get_next_line.h"
 
-#ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
+char *copia_plus_one(char *nl,int size, char c)
+{
+    char *new_nl;
+    int i;
 
-char *get_next_line(int fd);
-int posicion_barra_n(char *buffer, int size);
-char *ft_tail(char *buffer, int size, int start);
-char *ft_guarda_contingut(char *nl,int nl_size, char *buffer, int end_position);
-
-#endif
+    i = 0;
+    new_nl = malloc((size + 2)*sizeof(char));
+    while (i < size)
+    {
+        new_nl[i] = nl[i];
+        i++;
+    }
+    new_nl[i] = c;
+    new_nl[i + 1] = (char)0;
+    free(nl);
+    return (new_nl);
+}

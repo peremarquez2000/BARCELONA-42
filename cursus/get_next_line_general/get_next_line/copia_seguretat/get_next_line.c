@@ -11,66 +11,41 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 0
 #endif
-
 
 char *get_next_line(int fd)
 {
-    char *nl = NULL;
-    int nl_size;
-    static char *post_nl = NULL;
-    static char *post_nl_size = 0;
-    char *buffer;
-    int buffer_size;
+    char *nl;
+    char *character;
     int bytesRead;
-    int posicion_barra_n;
-    int flag;
+    int size;
 
-    nl_size = 0;
-    flag = 1;
-    buffer_size = BUFFER_SIZE;
-    buffer = (char *)malloc(buffer_size * sizeof(char));
-    if(!buffer)
+    size = BUFFER_SIZE;
+    character = (char *)malloc(1*sizeof(char));
+    nl = (char *)malloc((size)*sizeof(char));
+    
+    bytesRead = read(fd, character, 1);
+    if(!nl || !character || bytesRead != 1)
         return (NULL);
-    while(flag) //no hayas encontrado final de ficheor o un \n
+    while (bytesRead == 1 && *character != '\n')
     {
-        if (nl == NULL)
-        {
-            nl = post_nl;
-            nl_size = post_nl_size;
-
-        }
-        bytesRead = read(fd, buffer, buffer_size);
-        posicion_barra_n= ft_posicion_barra_n(buffer);
-        if(posicion_barra_n != -1)
-        {
-            //imprime la linea con el contenido arrastrado con \n final y con null al final
-            nl = ft_guarda_contingut(nl,nl_size, buffer, posicion_barra_n);
-            nl_size +=  bytesRead;
-            post_nl = ft_tail(buffer, bytesRead, posicion_barra_n + 1);
-            post_nl_size = bytesRead - posicion_barra_n - 1;
-            flag == 0;
-        }
-
-        if(bytesRead != buffer_size)
-        {
-            //imprime la linea con el contenido anterior sin \n final y con null al final
-            // ft_guarda_contingut(nl,buffer, bytesRead);
-            flag == 0;
-        }
-        nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead);
-        nl_size +=  bytesRead;
+        nl = copia_plus_one(nl, size, *character);
+        if (!nl)
+            return(NULL);
+        bytesRead = read(fd, character, 1);
+        size++;
     }
+    if (*character == '\n')
+        nl = copia_plus_one(nl, size, *character);
     return (nl);
-
 }
-
-/* int main()
-{
+int main(){
+    
     char* fileName = "test.txt";
-    // char* nl;
+    char* nl;
     int fd = open(fileName, O_RDONLY);
+    int i = 0;
     if(fd == -1)
     {
         printf("\nError Opening File!!\n");
@@ -79,9 +54,18 @@ char *get_next_line(int fd)
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
     
-    printf("%s",get_next_line(fd));
+
+    
+    
+    while (i < 7)
+    {
+        nl = get_next_line(fd);
+        printf("%s",nl);
+        i++;
+    }
+    
     return(0);
-} */
+}
 /*
 int main(void)
 {

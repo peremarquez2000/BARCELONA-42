@@ -17,56 +17,34 @@
 
 char *get_next_line(int fd)
 {
-    char *nl = NULL;
-    int nl_size;
-    static char *post_nl = NULL;
-    static char *post_nl_size = 0;
+    static char *nl;
     char *buffer;
     int buffer_size;
     int bytesRead;
     int posicion_barra_n;
-    int flag;
 
-    nl_size = 0;
-    flag = 1;
     buffer_size = BUFFER_SIZE;
     buffer = (char *)malloc(buffer_size * sizeof(char));
     if(!buffer)
         return (NULL);
-    while(flag) //no hayas encontrado final de ficheor o un \n
+    while(1) //no hayas encontrado final de ficheor o un \n
     {
-        if (nl == NULL)
-        {
-            nl = post_nl;
-            nl_size = post_nl_size;
-
-        }
         bytesRead = read(fd, buffer, buffer_size);
         posicion_barra_n= ft_posicion_barra_n(buffer);
         if(posicion_barra_n != -1)
         {
             //imprime la linea con el contenido arrastrado con \n final y con null al final
-            nl = ft_guarda_contingut(nl,nl_size, buffer, posicion_barra_n);
-            nl_size +=  bytesRead;
-            post_nl = ft_tail(buffer, bytesRead, posicion_barra_n + 1);
-            post_nl_size = bytesRead - posicion_barra_n - 1;
-            flag == 0;
+            return (new_copia(buffer, posicion_barra_n, 1));
         }
 
         if(bytesRead != buffer_size)
         {
             //imprime la linea con el contenido anterior sin \n final y con null al final
-            // ft_guarda_contingut(nl,buffer, bytesRead);
-            flag == 0;
+            return (new_copia(buffer, bytesRead, 0));
         }
-        nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead);
-        nl_size +=  bytesRead;
     }
-    return (nl);
-
 }
-
-/* int main()
+int main()
 {
     char* fileName = "test.txt";
     // char* nl;
@@ -81,7 +59,7 @@ char *get_next_line(int fd)
     
     printf("%s",get_next_line(fd));
     return(0);
-} */
+}
 /*
 int main(void)
 {
