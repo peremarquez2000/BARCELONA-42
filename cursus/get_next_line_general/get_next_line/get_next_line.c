@@ -10,15 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 0
+#endif
 
 char *get_next_line(int fd)
 {
     char *nl;
     char *character;
-    int size;
     int bytesRead;
+    int size;
 
-    size = 0;
+    size = BUFFER_SIZE;
     character = (char *)malloc(1*sizeof(char));
     nl = (char *)malloc((size)*sizeof(char));
     
@@ -37,7 +40,6 @@ char *get_next_line(int fd)
         nl = copia_plus_one(nl, size, *character);
     return (nl);
 }
-/*
 int main(){
     
     char* fileName = "test.txt";
@@ -55,7 +57,7 @@ int main(){
 
     
     
-    while (i < 50)
+    while (i < 7)
     {
         nl = get_next_line(fd);
         printf("%s",nl);
@@ -64,7 +66,6 @@ int main(){
     
     return(0);
 }
-*/
 /*
 int main(void)
 {
