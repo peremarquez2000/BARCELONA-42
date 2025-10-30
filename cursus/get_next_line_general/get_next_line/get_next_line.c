@@ -37,49 +37,30 @@ char *get_next_line(int fd)
     {
         if (nl == NULL && post_nl!= NULL)
         {
-            printf("\nPREVIAAAA\n");
-            printf("------------------------\n");
             nl = post_nl;
             nl_size = post_nl_size;
             post_nl_size = 0;
             post_nl = NULL;
-            printf("\n nl = %s", nl);
-            printf(" nl_size = %d \n", nl_size);
-            printf("\n post_nl = %s \n", post_nl);
-            printf(" post_nl_size = %d \n", post_nl_size);
 
             if (bytesRead == 0)
                 flag = 0;
         }
         bytesRead = read(fd, buffer, buffer_size);
+        if(bytesRead == 0)
+            return (NULL);
         posicion_barra_n= ft_posicion_barra_n(buffer, bytesRead);
         if(posicion_barra_n != -1)
         {
-            printf("\nHE ENCONTRADO UN \\N\n");
-            printf("------------------------\n");
             nl = ft_guarda_contingut(nl,nl_size, buffer, posicion_barra_n);
             nl_size +=  posicion_barra_n + 1;
             post_nl = ft_tail(buffer, bytesRead, posicion_barra_n + 1);
             post_nl_size = bytesRead - posicion_barra_n - 1;
-            printf("\n nl = %s", nl);
-            printf(" nl_size = %d \n", nl_size);
-            printf("\n post_nl = %s \n", post_nl);
-            printf(" post_nl_size = %d \n", post_nl_size);
             flag = 0;
         }
         else if(bytesRead != buffer_size)
         {
             nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead - 1);
             nl_size += bytesRead; 
-            printf("\nHE LLEGADO AL FINAL\n");
-            printf("------------------------\n");
-            printf("\nbytesread = %d", bytesRead);
-            printf("\nbuffer_size = %d", buffer_size);
-            printf("\nnl = %s", nl);
-            printf("\nnl_size = %d \n", nl_size);
-            printf("\npost_nl = %s \n", post_nl);
-            printf("\npost_nl_size = %d \n", post_nl_size);
-
             flag = 0;
         }
         else 
@@ -88,17 +69,8 @@ char *get_next_line(int fd)
             nl_size +=  bytesRead;
             post_nl = NULL;
             post_nl_size = 0;
-            printf("\nBUFFER TRANQUILO\n");
-            printf("------------------------\n");
-            printf("\nnl = %s", nl);
-            printf("\nnl_size = %d \n", nl_size);
-            printf("\npost_nl = %s \n", post_nl);
-            printf("\npost_nl_size = %d \n", post_nl_size);
-
         }
-        // printf("\n new_line = %s \n", nl);
     }
-    printf("\n VALOR QUE RETORNAMOS = %s", nl);
     return (nl);
 }
 int main()
@@ -116,11 +88,11 @@ int main()
     
 
 
-    for (int i = 0; i<3; i++)
+    for (int i = 0; i<10; i++)
     {
         // printf("i = %d\n", i);
-        // printf("%s",get_next_line(fd));
-        get_next_line(fd);
+        printf("%s",get_next_line(fd));
+        // get_next_line(fd);
     }
     // get_next_line(fd);
     return(0);
