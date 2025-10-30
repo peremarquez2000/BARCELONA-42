@@ -17,9 +17,12 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+//get_next_line.c
 char *get_next_line(int fd);
-int posicion_barra_n(char *buffer, int size);
+
+//get_next_line_utils.c
+int ft_posicion_barra_n(char *buffer, int size);
 char *ft_tail(char *buffer, int size, int start);
-char *ft_guarda_contingut(char *nl,int nl_size, char *buffer, int end_position);
+char *ft_guarda_contingut(char *nl, int nl_size, char *buffer, int end_position);
 
 #endif

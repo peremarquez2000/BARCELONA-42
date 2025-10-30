@@ -20,7 +20,7 @@ char *get_next_line(int fd)
     char *nl = NULL;
     int nl_size;
     static char *post_nl = NULL;
-    static char *post_nl_size = 0;
+    static int post_nl_size = 0;
     char *buffer;
     int buffer_size;
     int bytesRead;
@@ -35,37 +35,67 @@ char *get_next_line(int fd)
         return (NULL);
     while(flag) //no hayas encontrado final de ficheor o un \n
     {
-        if (nl == NULL)
+        if (nl == NULL && post_nl!= NULL)
         {
             nl = post_nl;
             nl_size = post_nl_size;
-
+            if (bytesRead == 0)
+                flag = 0;
         }
         bytesRead = read(fd, buffer, buffer_size);
-        posicion_barra_n= ft_posicion_barra_n(buffer);
+        posicion_barra_n= ft_posicion_barra_n(buffer, bytesRead);
         if(posicion_barra_n != -1)
         {
+            // printf("\nENTROOOOOO\n");
             //imprime la linea con el contenido arrastrado con \n final y con null al final
             nl = ft_guarda_contingut(nl,nl_size, buffer, posicion_barra_n);
+            // printf("\n new_line = %s \n", nl);
             nl_size +=  bytesRead;
             post_nl = ft_tail(buffer, bytesRead, posicion_barra_n + 1);
             post_nl_size = bytesRead - posicion_barra_n - 1;
-            flag == 0;
+            // printf("\n post_new_line = %s \n", post_nl);
+            flag = 0;
         }
 
-        if(bytesRead != buffer_size)
+        else if(bytesRead != buffer_size)
         {
             //imprime la linea con el contenido anterior sin \n final y con null al final
             // ft_guarda_contingut(nl,buffer, bytesRead);
-            flag == 0;
+            flag = 0;
         }
-        nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead);
-        nl_size +=  bytesRead;
+        else 
+        {
+            nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead);
+            nl_size +=  bytesRead;
+        }
+        // printf("\n new_line = %s \n", nl);
     }
     return (nl);
 
 }
+int main()
+{
+    char* fileName = "test.txt";
+    // char* nl;
+    int fd = open(fileName, O_RDONLY);
+    if(fd == -1)
+    {
+        printf("\nError Opening File!!\n");
+        return(1);
+    }
+    else
+        printf("\nFile \"%s\" opened sucessfully!\n", fileName);
+    
 
+
+    for (int i = 0; i<2; i++)
+    {
+        printf("i = %d\n", i);
+        printf("%s",get_next_line(fd));
+    }
+    // get_next_line(fd);
+    return(0);
+}
 /* int main()
 {
     char* fileName = "test.txt";

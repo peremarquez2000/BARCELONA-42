@@ -12,14 +12,14 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int posicion_barra_n(char *buffer, int size)
+int ft_posicion_barra_n(char *buffer, int size)
 {
     int i;
     i = 0;
 
     while (i < size)
     {
-        if(buffer[i] == '\n')
+        if (buffer[i] == '\n')
             return (i);
         i++;
     }
@@ -31,7 +31,7 @@ char *ft_tail(char *buffer, int size, int start)
     char *new_buff;
     int corrector;
 
-    if(start >= size)
+    if (start >= size)
         return (NULL);
     corrector = start;
     new_buff = (char *)malloc((size - start) * sizeof(char));
@@ -45,13 +45,12 @@ char *ft_tail(char *buffer, int size, int start)
     return (new_buff);
 }
 
-
- char *ft_guarda_contingut(char *nl,int nl_size, char *buffer, int end_position)
+char *ft_guarda_contingut(char *nl, int nl_size, char *buffer, int end_position)
 {
     int i;
     i = 0;
     char *new_nl;
-    new_nl = malloc((nl_size + end_position)*sizeof(char));
+    new_nl = malloc((nl_size + end_position) * sizeof(char));
     while (i < nl_size)
     {
         new_nl[i] = nl[i];
@@ -64,10 +63,8 @@ char *ft_tail(char *buffer, int size, int start)
         i++;
     }
     free(nl);
-    return(new_nl);
-
-
-} 
+    return (new_nl);
+}
 
 /* int main()
 {
@@ -102,5 +99,3 @@ char *ft_tail(char *buffer, int size, int start)
     printf("%s", substr);
     // printf("%d", substr == NULL);
 } */
-
-
