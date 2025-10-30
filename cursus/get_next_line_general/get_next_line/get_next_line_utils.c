@@ -26,12 +26,12 @@ int ft_posicion_barra_n(char *buffer, int size)
     return (-1);
 }
 
-char *ft_guarda_contingut(char *nl, int nl_size, char *buffer, int end_position)
+char *ft_new_nl(char *nl, int nl_size, char *buffer, int end_position)
 {
     int i;
     i = 0;
     char *new_nl;
-    new_nl = malloc((nl_size + (end_position + 1)) * sizeof(char));
+    new_nl = malloc((nl_size + (end_position + 1) + 1) * sizeof(char));
     while (i < nl_size)
     {
         new_nl[i] = nl[i];
@@ -43,8 +43,32 @@ char *ft_guarda_contingut(char *nl, int nl_size, char *buffer, int end_position)
         new_nl[nl_size + i] = buffer[i];
         i++;
     }
-    free(nl);
+    new_nl[nl_size + end_position + 1] = (char)0;
+    // free(nl);
     return (new_nl);
+}
+
+char *ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
+{
+    int i;
+    char *new_buff;
+
+    i = 0;
+    new_buff = malloc((buff1_size + buff2_size ) * sizeof(char));
+    while (i < buff1_size)
+    {
+        new_buff[i] = buff1[i];
+        i++;
+    }
+    i = 0;
+    while (i < buff2_size)
+    {
+        new_buff[buff1_size + i] = buff2[i];
+        i++;
+    }
+    // free(buff1);
+    // free(buff2);
+    return (new_buff);
 }
 
 char *ft_tail(char *buffer, int size, int start)
@@ -65,8 +89,6 @@ char *ft_tail(char *buffer, int size, int start)
     }
     return (new_buff);
 }
-
-
 
 /* int main()
 {

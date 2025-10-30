@@ -14,7 +14,6 @@
 #define BUFFER_SIZE 5
 #endif
 
-
 char *get_next_line(int fd)
 {
     char *nl = NULL;
@@ -31,11 +30,11 @@ char *get_next_line(int fd)
     flag = 1;
     buffer_size = BUFFER_SIZE;
     buffer = (char *)malloc(buffer_size * sizeof(char));
-    if(!buffer)
+    if (!buffer)
         return (NULL);
-    while(flag)
+    while (flag)
     {
-        if (nl == NULL && post_nl!= NULL)
+        if (nl == NULL && post_nl != NULL)
         {
             printf("\nPREVIAAAA\n");
             printf("------------------------\n");
@@ -52,13 +51,13 @@ char *get_next_line(int fd)
                 flag = 0;
         }
         bytesRead = read(fd, buffer, buffer_size);
-        posicion_barra_n= ft_posicion_barra_n(buffer, bytesRead);
-        if(posicion_barra_n != -1)
+        posicion_barra_n = ft_posicion_barra_n(buffer, bytesRead);
+        if (posicion_barra_n != -1)
         {
             printf("\nHE ENCONTRADO UN \\N\n");
             printf("------------------------\n");
-            nl = ft_guarda_contingut(nl,nl_size, buffer, posicion_barra_n);
-            nl_size +=  posicion_barra_n + 1;
+            nl = ft_new_nl(nl, nl_size, buffer, posicion_barra_n);
+            nl_size += posicion_barra_n + 1;
             post_nl = ft_tail(buffer, bytesRead, posicion_barra_n + 1);
             post_nl_size = bytesRead - posicion_barra_n - 1;
             printf("\n nl = %s", nl);
@@ -67,10 +66,10 @@ char *get_next_line(int fd)
             printf(" post_nl_size = %d \n", post_nl_size);
             flag = 0;
         }
-        else if(bytesRead != buffer_size)
+        else if (bytesRead != buffer_size)
         {
-            nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead - 1);
-            nl_size += bytesRead; 
+            nl = ft_new_nl(nl, nl_size, buffer, bytesRead - 1);
+            nl_size += bytesRead;
             printf("\nHE LLEGADO AL FINAL\n");
             printf("------------------------\n");
             printf("\nbytesread = %d", bytesRead);
@@ -82,10 +81,10 @@ char *get_next_line(int fd)
 
             flag = 0;
         }
-        else 
+        else
         {
-            nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead);
-            nl_size +=  bytesRead;
+            nl = ft_new_nl(nl, nl_size, buffer, bytesRead);
+            nl_size += bytesRead;
             post_nl = NULL;
             post_nl_size = 0;
             printf("\nBUFFER TRANQUILO\n");
@@ -94,7 +93,6 @@ char *get_next_line(int fd)
             printf("\nnl_size = %d \n", nl_size);
             printf("\npost_nl = %s \n", post_nl);
             printf("\npost_nl_size = %d \n", post_nl_size);
-
         }
         // printf("\n new_line = %s \n", nl);
     }
@@ -103,27 +101,25 @@ char *get_next_line(int fd)
 }
 int main()
 {
-    char* fileName = "test.txt";
+    char *fileName = "test.txt";
     // char* nl;
     int fd = open(fileName, O_RDONLY);
-    if(fd == -1)
+    if (fd == -1)
     {
         printf("\nError Opening File!!\n");
-        return(1);
+        return (1);
     }
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    
 
-
-    for (int i = 0; i<3; i++)
+    for (int i = 0; i < 3; i++)
     {
         // printf("i = %d\n", i);
         // printf("%s",get_next_line(fd));
         get_next_line(fd);
     }
     // get_next_line(fd);
-    return(0);
+    return (0);
 }
 /* int main()
 {
@@ -137,7 +133,7 @@ int main()
     }
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    
+
     printf("%s",get_next_line(fd));
     return(0);
 } */
@@ -146,7 +142,7 @@ int main(void)
 {
     char *line;
 
-    while ((line = get_next_line(0)) != NULL)  
+    while ((line = get_next_line(0)) != NULL)
     {
         printf("%s", line);
         free(line);

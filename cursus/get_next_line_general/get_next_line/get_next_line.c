@@ -14,120 +14,100 @@
 #define BUFFER_SIZE 5
 #endif
 
-
 char *get_next_line(int fd)
 {
     char *nl = NULL;
     int nl_size;
-    static char *post_nl = NULL;
-    static int post_nl_size = 0;
+
+    static char *st_buffer = NULL;
+    static int st_bytesRead = 0;
+
     char *buffer;
-    int buffer_size;
     int bytesRead;
+
+    int buffer_size;
     int posicion_barra_n;
     int flag;
 
     nl_size = 0;
     flag = 1;
     buffer_size = BUFFER_SIZE;
+    bytesRead = 0;
     buffer = (char *)malloc(buffer_size * sizeof(char));
-    if(!buffer)
+    if (!buffer)
         return (NULL);
-    while(flag)
+    while (flag)
     {
-        if (nl == NULL && post_nl!= NULL)
-        {
-            printf("\nPREVIAAAA\n");
-            printf("------------------------\n");
-            nl = post_nl;
-            nl_size = post_nl_size;
-            post_nl_size = 0;
-            post_nl = NULL;
-            printf("\n nl = %s", nl);
-            printf(" nl_size = %d \n", nl_size);
-            printf("\n post_nl = %s \n", post_nl);
-            printf(" post_nl_size = %d \n", post_nl_size);
-
-            if (bytesRead == 0)
-                flag = 0;
-        }
         bytesRead = read(fd, buffer, buffer_size);
-        if(bytesRead == 0 && nl == NULL)
+        st_buffer = ft_new_buff(st_buffer, st_bytesRead, buffer, bytesRead);
+        st_bytesRead += bytesRead;
+        printf("\nstatic_buffer=%s", st_buffer);
+        printf("\nstatic_buffer_size=%d\n", st_bytesRead);
+
+        if (bytesRead == 0 && st_bytesRead == 0)
             return (NULL);
-        posicion_barra_n= ft_posicion_barra_n(buffer, bytesRead);
-        if(posicion_barra_n != -1)
+        posicion_barra_n = ft_posicion_barra_n(st_buffer, st_bytesRead);
+        if (posicion_barra_n != -1)
         {
-            printf("\nHE ENCONTRADO UN \\N\n");
-            printf("------------------------\n");
-            nl = ft_guarda_contingut(nl,nl_size, buffer, posicion_barra_n);
-            nl_size +=  posicion_barra_n + 1;
-            post_nl = ft_tail(buffer, bytesRead, posicion_barra_n + 1);
-            post_nl_size = bytesRead - posicion_barra_n - 1;
-            printf("\n nl = %s", nl);
-            printf(" nl_size = %d \n", nl_size);
-            printf("\n post_nl = %s \n", post_nl);
-            printf(" post_nl_size = %d \n", post_nl_size);
+            printf("\nENCUENTRO \\N\n");
+            printf("--------------------\n");
+            nl = ft_new_nl(nl, nl_size, st_buffer, posicion_barra_n);
+            st_buffer = ft_tail(st_buffer, st_bytesRead, posicion_barra_n + 1);
+            st_bytesRead = st_bytesRead - posicion_barra_n - 1;
+            printf("\nnl=%s", nl);
+            printf("\nstatic_buffer=%s", st_buffer);
+            printf("\nst_bytesRead=%d", st_bytesRead);
+
             flag = 0;
         }
-        else if(bytesRead != buffer_size)
+        else if (st_bytesRead != buffer_size && bytesRead != buffer_size)
         {
-            nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead - 1);
-            nl_size += bytesRead; 
+            //añado buffer a static buffer
             printf("\nHE LLEGADO AL FINAL\n");
-            printf("------------------------\n");
-            printf("\nbytesread = %d", bytesRead);
-            printf("\nbuffer_size = %d", buffer_size);
-            printf("\nnl = %s", nl);
-            printf("\nnl_size = %d \n", nl_size);
-            printf("\npost_nl = %s \n", post_nl);
-            printf("\npost_nl_size = %d \n", post_nl_size);
+            printf("--------------------\n");
+            // st_buffer = ft_new_buff(st_buffer, st_bytesRead, buffer, bytesRead);
+            nl = st_buffer;
+            printf("\nbuffer=%s", buffer);
+            printf("\nstatic_buffer=%s", st_buffer);
 
+            // nl_size = st_bytesRead;
             flag = 0;
         }
-        else 
+        else
         {
-            nl = ft_guarda_contingut(nl,nl_size, buffer, bytesRead);
-            nl_size +=  bytesRead;
-            post_nl = NULL;
-            post_nl_size = 0;
             printf("\nBUFFER TRANQUILO\n");
-            printf("------------------------\n");
-            printf("\nbytesread = %d", bytesRead);
-            printf("\nbuffer_size = %d", buffer_size);
-            printf("\nnl = %s", nl);
-            printf("\nnl_size = %d \n", nl_size);
-            printf("\npost_nl = %s \n", post_nl);
-            printf("\npost_nl_size = %d \n", post_nl_size);
+            printf("--------------------\n");
+            // st_buffer = ft_new_buff(st_buffer, st_bytesRead, buffer, bytesRead);
+            // st_bytesRead += bytesRead;
+            // printf("\nstatic_buffer=%s", st_buffer);
+            // printf("\nst_bytesRead=%d", st_bytesRead);
 
         }
-        // printf("\n new_line = %s \n", nl);
     }
     printf("\n VALOR QUE RETORNAMOS = %s", nl);
     return (nl);
 }
 int main()
 {
-    char* fileName = "test.txt";
+    char *fileName = "test.txt";
     // char* nl;
     int fd = open(fileName, O_RDONLY);
-    if(fd == -1)
+    if (fd == -1)
     {
         printf("\nError Opening File!!\n");
-        return(1);
+        return (1);
     }
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    
 
-
-    for (int i = 0; i<3; i++)
+    for (int i = 0; i < 3; i++)
     {
         // printf("i = %d\n", i);
         // printf("%s",get_next_line(fd));
         get_next_line(fd);
     }
     // get_next_line(fd);
-    return(0);
+    return (0);
 }
 /* int main()
 {
@@ -141,7 +121,7 @@ int main()
     }
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    
+
     printf("%s",get_next_line(fd));
     return(0);
 } */
@@ -150,7 +130,7 @@ int main(void)
 {
     char *line;
 
-    while ((line = get_next_line(0)) != NULL)  
+    while ((line = get_next_line(0)) != NULL)
     {
         printf("%s", line);
         free(line);
