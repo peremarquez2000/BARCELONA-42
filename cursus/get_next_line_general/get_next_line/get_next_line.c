@@ -31,21 +31,19 @@ static int	ft_bar_n_position(char *buffer, int size)
 
 char	*get_next_line(int fd)
 {
-	int			buffer_size;
 	static char	*st_buffer = NULL;
 	static int	st_bytesread = 0;
 	char		*buffer;
 	int			bytesread;
 	int			bar_n_pos;
 
-	buffer_size = BUFFER_SIZE;
 	bytesread = 0;
-	buffer = (char *)malloc(buffer_size * sizeof(char));
+	buffer = (char *)malloc(BUFFER_SIZE * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	while (1)
 	{
-		bytesread = read(fd, buffer, buffer_size);
+		bytesread = read(fd, buffer, BUFFER_SIZE);
 		st_buffer = ft_new_buff(st_buffer, st_bytesread, buffer, bytesread);
 		st_bytesread += bytesread;
 		if (bytesread == 0 && st_bytesread == 0)
@@ -53,12 +51,12 @@ char	*get_next_line(int fd)
 		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
 		if (bar_n_pos != -1)
 			return (ft_found_bar_n(&st_buffer, &st_bytesread, bar_n_pos));
-		else if (st_bytesread != buffer_size && bytesread != buffer_size)
+		else if (st_bytesread != BUFFER_SIZE && bytesread != BUFFER_SIZE)
 			return (ft_end_of_file(&st_buffer, &st_bytesread));
 	}
 }
-
-/* int main()
+/* 
+int main()
 {
 	char *fileName = "test.txt";
 	// char* nl;
