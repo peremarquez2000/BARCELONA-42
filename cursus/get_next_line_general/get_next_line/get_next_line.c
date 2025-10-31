@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+#include <stdio.h>
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 5
 #endif
@@ -17,7 +18,6 @@
 char	*get_next_line(int fd)
 {
 	char		*nl;
-	int			nl_size;
 	static char	*st_buffer = NULL;
 	static int	st_bytesread = 0;
 	char		*buffer;
@@ -27,7 +27,6 @@ char	*get_next_line(int fd)
 	int			flag;
 
 	nl = NULL;
-	nl_size = 0;
 	flag = 1;
 	buffer_size = BUFFER_SIZE;
 	bytesread = 0;
@@ -44,7 +43,7 @@ char	*get_next_line(int fd)
 		posicion_barra_n = ft_bar_n_position(st_buffer, st_bytesread);
 		if (posicion_barra_n != -1)
 		{
-			nl = ft_new_nl(nl, nl_size, st_buffer, posicion_barra_n);
+			nl = ft_new_line(st_buffer, posicion_barra_n);
 			st_buffer = ft_tail(st_buffer, st_bytesread, posicion_barra_n + 1);
 			st_bytesread = st_bytesread - posicion_barra_n - 1;
 			flag = 0;
@@ -59,8 +58,8 @@ char	*get_next_line(int fd)
 	}
 	return (nl);
 }
-/* 
-int main()
+
+/* int main()
 {
 	char *fileName = "test.txt";
 	// char* nl;

@@ -26,25 +26,19 @@ int	ft_bar_n_position(char *buffer, int size)
 	return (-1);
 }
 
-char	*ft_new_nl(char *nl, int nl_size, char *buffer, int end_position)
+char	*ft_new_line(char *buffer, int end_position)
 {
 	int		i;
 	char	*new_nl;
 
 	i = 0;
-	new_nl = malloc((nl_size + (end_position + 1) + 1) * sizeof(char));
-	while (i < nl_size)
-	{
-		new_nl[i] = nl[i];
-		i++;
-	}
-	i = 0;
+	new_nl = malloc(((end_position + 1) + 1) * sizeof(char));
 	while (i <= end_position)
 	{
-		new_nl[nl_size + i] = buffer[i];
+		new_nl[i] = buffer[i];
 		i++;
 	}
-	new_nl[nl_size + end_position + 1] = (char)0;
+	new_nl[end_position + 1] = (char)0;
 	return (new_nl);
 }
 
