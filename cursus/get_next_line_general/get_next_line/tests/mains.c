@@ -47,3 +47,37 @@ int main(void)
 	return 0;
 }
 */
+
+/* int main()
+{
+	char *str;
+	char *substr;
+	str = (char *)malloc(2*sizeof(char));
+	str[0] = 'a';
+	str[1] = '\n';
+	int posicion = posicion_barra_n(str, 2);
+
+	// printf("%d", posicion);
+
+
+	substr = ft_tail(str, 2 , posicion + 5);
+	printf("%s", substr);
+	// printf("%d", substr == NULL);
+} */
+
+/* int main()
+{
+	char *str;
+	char *substr;
+	str = (char *)malloc(2*sizeof(char));
+	str[0] = 'a';
+	str[1] = '\n';
+	int posicion = posicion_barra_n(str, 2);
+
+	// printf("%d", posicion);
+
+
+	substr = ft_tail(str, 2 , posicion + 5);
+	printf("%s", substr);
+	// printf("%d", substr == NULL);
+} */
