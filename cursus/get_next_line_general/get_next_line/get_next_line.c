@@ -15,14 +15,28 @@
 # define BUFFER_SIZE 5
 #endif
 
+static int	ft_bar_n_position(char *buffer, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (buffer[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 char	*get_next_line(int fd)
 {
+	int			buffer_size;
 	static char	*st_buffer = NULL;
 	static int	st_bytesread = 0;
 	char		*buffer;
 	int			bytesread;
-	int			buffer_size;
-	int			posicion_barra_n;
+	int			bar_n_pos;
 
 	buffer_size = BUFFER_SIZE;
 	bytesread = 0;
@@ -36,15 +50,15 @@ char	*get_next_line(int fd)
 		st_bytesread += bytesread;
 		if (bytesread == 0 && st_bytesread == 0)
 			return (NULL);
-		posicion_barra_n = ft_bar_n_position(st_buffer, st_bytesread);
-		if (posicion_barra_n != -1)
-			return (ft_found_bar_n(&st_buffer, &st_bytesread, posicion_barra_n));
+		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
+		if (bar_n_pos != -1)
+			return (ft_found_bar_n(&st_buffer, &st_bytesread, bar_n_pos));
 		else if (st_bytesread != buffer_size && bytesread != buffer_size)
-			return(ft_end_of_file(&st_buffer, &st_bytesread));
+			return (ft_end_of_file(&st_buffer, &st_bytesread));
 	}
 }
 
-int main()
+/* int main()
 {
 	char *fileName = "test.txt";
 	// char* nl;
@@ -63,33 +77,4 @@ int main()
 		printf("%s", get_next_line(fd));
 	}
 	return (0);
-}
-/* int main()
-{
-	char* fileName = "test.txt";
-	// char* nl;
-	int fd = open(fileName, O_RDONLY);
-	if(fd == -1)
-	{
-		printf("\nError Opening File!!\n");
-		return(1);
-	}
-	else
-		printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-
-	printf("%s",get_next_line(fd));
-	return(0);
 } */
-/*
-int main(void)
-{
-	char *line;
-
-	while ((line = get_next_line(0)) != NULL)
-	{
-		printf("%s", line);
-		free(line);
-	}
-	return 0;
-}
-*/

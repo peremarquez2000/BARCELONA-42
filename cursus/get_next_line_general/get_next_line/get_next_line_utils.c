@@ -12,20 +12,6 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int	ft_bar_n_position(char *buffer, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (buffer[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 char	*ft_new_line(char *buffer, int end_position)
 {
 	int		i;
@@ -84,19 +70,21 @@ char	*ft_tail(char *buffer, int size, int start)
 
 char	*ft_end_of_file(char **st_buffer, int *st_bytesread)
 {
-	char *temp;
+	char	*temp;
+
 	temp = *st_buffer;
 	*st_buffer = NULL;
 	*st_bytesread = 0;
-	return(temp);
+	return (temp);
 }
 
-char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int posicion_barra_n)
+char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int bar_n_pos)
 {
-	char *nl;
-	nl = ft_new_line(*st_buffer, posicion_barra_n);
-	*st_buffer = ft_tail(*st_buffer, *st_bytesread, posicion_barra_n + 1);
-	*st_bytesread = *st_bytesread - posicion_barra_n - 1;
+	char	*nl;
+
+	nl = ft_new_line(*st_buffer, bar_n_pos);
+	*st_buffer = ft_tail(*st_buffer, *st_bytesread, bar_n_pos + 1);
+	*st_bytesread = *st_bytesread - bar_n_pos - 1;
 	return (nl);
 }
 
