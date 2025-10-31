@@ -12,114 +12,112 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int ft_posicion_barra_n(char *buffer, int size)
+int	ft_bar_n_position(char *buffer, int size)
 {
-    int i;
-    i = 0;
+	int	i;
 
-    while (i < size)
-    {
-        if (buffer[i] == '\n')
-            return (i);
-        i++;
-    }
-    return (-1);
+	i = 0;
+	while (i < size)
+	{
+		if (buffer[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
-char *ft_new_nl(char *nl, int nl_size, char *buffer, int end_position)
+char	*ft_new_nl(char *nl, int nl_size, char *buffer, int end_position)
 {
-    int i;
-    i = 0;
-    char *new_nl;
-    new_nl = malloc((nl_size + (end_position + 1) + 1) * sizeof(char));
-    while (i < nl_size)
-    {
-        new_nl[i] = nl[i];
-        i++;
-    }
-    i = 0;
-    while (i <= end_position)
-    {
-        new_nl[nl_size + i] = buffer[i];
-        i++;
-    }
-    new_nl[nl_size + end_position + 1] = (char)0;
-    // free(nl);
-    return (new_nl);
+	int		i;
+	char	*new_nl;
+
+	i = 0;
+	new_nl = malloc((nl_size + (end_position + 1) + 1) * sizeof(char));
+	while (i < nl_size)
+	{
+		new_nl[i] = nl[i];
+		i++;
+	}
+	i = 0;
+	while (i <= end_position)
+	{
+		new_nl[nl_size + i] = buffer[i];
+		i++;
+	}
+	new_nl[nl_size + end_position + 1] = (char)0;
+	return (new_nl);
 }
 
-char *ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
+char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
 {
-    int i;
-    char *new_buff;
+	int		i;
+	char	*new_buff;
 
-    i = 0;
-    new_buff = malloc((buff1_size + buff2_size ) * sizeof(char));
-    while (i < buff1_size)
-    {
-        new_buff[i] = buff1[i];
-        i++;
-    }
-    i = 0;
-    while (i < buff2_size)
-    {
-        new_buff[buff1_size + i] = buff2[i];
-        i++;
-    }
-    // free(buff1);
-    // free(buff2);
-    return (new_buff);
+	i = 0;
+	new_buff = malloc((buff1_size + buff2_size) * sizeof(char));
+	while (i < buff1_size)
+	{
+		new_buff[i] = buff1[i];
+		i++;
+	}
+	i = 0;
+	while (i < buff2_size)
+	{
+		new_buff[buff1_size + i] = buff2[i];
+		i++;
+	}
+	return (new_buff);
 }
 
-char *ft_tail(char *buffer, int size, int start)
+char	*ft_tail(char *buffer, int size, int start)
 {
-    char *new_buff;
-    int corrector;
+	char	*new_buff;
+	int		corrector;
 
-    if (start >= size)
-        return (NULL);
-    corrector = start;
-    new_buff = (char *)malloc((size - start) * sizeof(char));
-    if (!new_buff)
-        return (NULL);
-    while (start <= size)
-    {
-        new_buff[start - corrector] = buffer[start];
-        start++;
-    }
-    return (new_buff);
+	if (start >= size)
+		return (NULL);
+	corrector = start;
+	new_buff = (char *)malloc((size - start) * sizeof(char));
+	if (!new_buff)
+		return (NULL);
+	while (start <= size)
+	{
+		new_buff[start - corrector] = buffer[start];
+		start++;
+	}
+	return (new_buff);
 }
 
 /* int main()
 {
-    char *str;
-    char *substr;
-    str = (char *)malloc(2*sizeof(char));
-    str[0] = 'a';
-    str[1] = '\n';
-    int posicion = posicion_barra_n(str, 2);
+	char *str;
+	char *substr;
+	str = (char *)malloc(2*sizeof(char));
+	str[0] = 'a';
+	str[1] = '\n';
+	int posicion = posicion_barra_n(str, 2);
 
-    // printf("%d", posicion);
+	// printf("%d", posicion);
 
 
-    substr = ft_tail(str, 2 , posicion + 5);
-    printf("%s", substr);
-    // printf("%d", substr == NULL);
+	substr = ft_tail(str, 2 , posicion + 5);
+	printf("%s", substr);
+	// printf("%d", substr == NULL);
 } */
 
 /* int main()
 {
-    char *str;
-    char *substr;
-    str = (char *)malloc(2*sizeof(char));
-    str[0] = 'a';
-    str[1] = '\n';
-    int posicion = posicion_barra_n(str, 2);
+	char *str;
+	char *substr;
+	str = (char *)malloc(2*sizeof(char));
+	str[0] = 'a';
+	str[1] = '\n';
+	int posicion = posicion_barra_n(str, 2);
 
-    // printf("%d", posicion);
+	// printf("%d", posicion);
 
 
-    substr = ft_tail(str, 2 , posicion + 5);
-    printf("%s", substr);
-    // printf("%d", substr == NULL);
+	substr = ft_tail(str, 2 , posicion + 5);
+	printf("%s", substr);
+	// printf("%d", substr == NULL);
 } */

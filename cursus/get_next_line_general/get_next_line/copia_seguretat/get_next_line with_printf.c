@@ -51,7 +51,7 @@ char *get_next_line(int fd)
                 flag = 0;
         }
         bytesRead = read(fd, buffer, buffer_size);
-        posicion_barra_n = ft_posicion_barra_n(buffer, bytesRead);
+        posicion_barra_n = ft_bar_n_position(buffer, bytesRead);
         if (posicion_barra_n != -1)
         {
             printf("\nHE ENCONTRADO UN \\N\n");

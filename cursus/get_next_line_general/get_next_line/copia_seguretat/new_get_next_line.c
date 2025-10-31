@@ -14,7 +14,6 @@
 #define BUFFER_SIZE 5
 #endif
 
-
 char *get_next_line(int fd)
 {
     static char *nl;
@@ -25,47 +24,47 @@ char *get_next_line(int fd)
 
     buffer_size = BUFFER_SIZE;
     buffer = (char *)malloc(buffer_size * sizeof(char));
-    if(!buffer)
+    if (!buffer)
         return (NULL);
-    while(1) //no hayas encontrado final de ficheor o un \n
+    while (1) // no hayas encontrado final de ficheor o un \n
     {
         bytesRead = read(fd, buffer, buffer_size);
-        posicion_barra_n= ft_posicion_barra_n(buffer);
-        if(posicion_barra_n != -1)
+        posicion_barra_n = ft_bar_n_position(buffer);
+        if (posicion_barra_n != -1)
         {
-            //imprime la linea con el contenido arrastrado con \n final y con null al final
+            // imprime la linea con el contenido arrastrado con \n final y con null al final
             return (new_copia(buffer, posicion_barra_n, 1));
         }
 
-        if(bytesRead != buffer_size)
+        if (bytesRead != buffer_size)
         {
-            //imprime la linea con el contenido anterior sin \n final y con null al final
+            // imprime la linea con el contenido anterior sin \n final y con null al final
             return (new_copia(buffer, bytesRead, 0));
         }
     }
 }
 int main()
 {
-    char* fileName = "test.txt";
+    char *fileName = "test.txt";
     // char* nl;
     int fd = open(fileName, O_RDONLY);
-    if(fd == -1)
+    if (fd == -1)
     {
         printf("\nError Opening File!!\n");
-        return(1);
+        return (1);
     }
     else
         printf("\nFile \"%s\" opened sucessfully!\n", fileName);
-    
-    printf("%s",get_next_line(fd));
-    return(0);
+
+    printf("%s", get_next_line(fd));
+    return (0);
 }
 /*
 int main(void)
 {
     char *line;
 
-    while ((line = get_next_line(0)) != NULL)  
+    while ((line = get_next_line(0)) != NULL)
     {
         printf("%s", line);
         free(line);
