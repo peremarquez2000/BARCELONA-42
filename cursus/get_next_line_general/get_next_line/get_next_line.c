@@ -12,7 +12,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
+# define BUFFER_SIZE 42
 #endif
 
 static int	ft_bar_n_position(char *buffer, int size)
@@ -44,22 +44,39 @@ char	*get_next_line(int fd)
 	while (1)
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
-		st_buffer = ft_new_buff(st_buffer, st_bytesread, buffer, bytesread);
-		st_bytesread += bytesread;
-		if (bytesread == 0 && st_bytesread == 0)
+		if(bytesread < 0)
+		{
+			free(buffer);
+			free(st_buffer);
+			st_buffer = NULL;
+			st_bytesread = 0;
 			return (NULL);
+		}
+
+		if (bytesread == 0 && st_bytesread == 0)
+		{
+			free(buffer);
+			free(st_buffer);
+			st_buffer = NULL;
+			st_bytesread = 0;
+			return (NULL);
+		}
+		st_buffer = ft_new_buff(st_buffer, st_bytesread, buffer, bytesread);
+		free(buffer);
+		st_bytesread += bytesread;
 		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
 		if (bar_n_pos != -1)
+			// free(buffer);
 			return (ft_found_bar_n(&st_buffer, &st_bytesread, bar_n_pos));
 		else if (st_bytesread != BUFFER_SIZE && bytesread != BUFFER_SIZE)
 			return (ft_end_of_file(&st_buffer, &st_bytesread));
 	}
 }
-/* 
+
 int main()
 {
 	char *fileName = "test.txt";
-	// char* nl;
+	char* nl;
 	int fd = open(fileName, O_RDONLY);
 	if (fd == -1)
 	{
@@ -72,7 +89,9 @@ int main()
 	for (int i = 0; i < 7; i++)
 	{
 		printf("\ni = %d\n", i);
-		printf("%s", get_next_line(fd));
+		nl = get_next_line(fd);
+		printf("%s", nl);
+		free(nl);
 	}
 	return (0);
-} */
+}
