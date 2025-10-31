@@ -25,4 +25,6 @@ int		ft_bar_n_position(char *buffer, int size);
 char	*ft_tail(char *buffer, int size, int start);
 char	*ft_new_line(char *buffer, int end_position);
 char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size);
+char	*ft_end_of_file(char **st_buffer, int *st_bytesread);
+char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int posicion_barra_n);
 #endif

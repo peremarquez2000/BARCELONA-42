@@ -82,6 +82,24 @@ char	*ft_tail(char *buffer, int size, int start)
 	return (new_buff);
 }
 
+char	*ft_end_of_file(char **st_buffer, int *st_bytesread)
+{
+	char *temp;
+	temp = *st_buffer;
+	*st_buffer = NULL;
+	*st_bytesread = 0;
+	return(temp);
+}
+
+char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int posicion_barra_n)
+{
+	char *nl;
+	nl = ft_new_line(*st_buffer, posicion_barra_n);
+	*st_buffer = ft_tail(*st_buffer, *st_bytesread, posicion_barra_n + 1);
+	*st_bytesread = *st_bytesread - posicion_barra_n - 1;
+	return (nl);
+}
+
 /* int main()
 {
 	char *str;

@@ -17,23 +17,19 @@
 
 char	*get_next_line(int fd)
 {
-	char		*nl;
 	static char	*st_buffer = NULL;
 	static int	st_bytesread = 0;
 	char		*buffer;
 	int			bytesread;
 	int			buffer_size;
 	int			posicion_barra_n;
-	int			flag;
 
-	nl = NULL;
-	flag = 1;
 	buffer_size = BUFFER_SIZE;
 	bytesread = 0;
 	buffer = (char *)malloc(buffer_size * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	while (flag)
+	while (1)
 	{
 		bytesread = read(fd, buffer, buffer_size);
 		st_buffer = ft_new_buff(st_buffer, st_bytesread, buffer, bytesread);
@@ -42,24 +38,13 @@ char	*get_next_line(int fd)
 			return (NULL);
 		posicion_barra_n = ft_bar_n_position(st_buffer, st_bytesread);
 		if (posicion_barra_n != -1)
-		{
-			nl = ft_new_line(st_buffer, posicion_barra_n);
-			st_buffer = ft_tail(st_buffer, st_bytesread, posicion_barra_n + 1);
-			st_bytesread = st_bytesread - posicion_barra_n - 1;
-			flag = 0;
-		}
+			return (ft_found_bar_n(&st_buffer, &st_bytesread, posicion_barra_n));
 		else if (st_bytesread != buffer_size && bytesread != buffer_size)
-		{
-			nl = st_buffer;
-			st_buffer = NULL;
-			st_bytesread = 0;
-			flag = 0;
-		}
+			return(ft_end_of_file(&st_buffer, &st_bytesread));
 	}
-	return (nl);
 }
 
-/* int main()
+int main()
 {
 	char *fileName = "test.txt";
 	// char* nl;
@@ -72,13 +57,13 @@ char	*get_next_line(int fd)
 	else
 		printf("\nFile \"%s\" opened sucessfully!\n", fileName);
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		printf("\ni = %d\n", i);
 		printf("%s", get_next_line(fd));
 	}
 	return (0);
-} */
+}
 /* int main()
 {
 	char* fileName = "test.txt";
