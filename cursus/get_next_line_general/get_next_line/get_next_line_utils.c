@@ -19,6 +19,8 @@ char	*ft_new_line(char *buffer, int end_position)
 
 	i = 0;
 	new_nl = malloc(((end_position + 1) + 1) * sizeof(char));
+	if (!new_nl)
+		return (NULL);
 	while (i <= end_position)
 	{
 		new_nl[i] = buffer[i];
@@ -35,6 +37,13 @@ char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
 
 	i = 0;
 	new_buff = malloc((buff1_size + buff2_size) * sizeof(char));
+	if(!new_buff)
+	{
+		free(buff1);
+		free(buff2);
+		return(NULL);
+
+	}
 	while (i < buff1_size)
 	{
 		new_buff[i] = buff1[i];
@@ -46,25 +55,28 @@ char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
 		new_buff[buff1_size + i] = buff2[i];
 		i++;
 	}
+	// free(buff1);
+	// free(buff2);
 	return (new_buff);
 }
 
-char	*ft_tail(char *buffer, int size, int start)
+char	*ft_tail(char *buffer, int size, int start_pos)
 {
 	char	*new_buff;
 	int		corrector;
 
-	if (start >= size)
+	if (start_pos >= size)
 		return (NULL);
-	corrector = start;
-	new_buff = (char *)malloc((size - start) * sizeof(char));
+	corrector = start_pos;
+	new_buff = (char *)malloc((size - start_pos) * sizeof(char));
 	if (!new_buff)
 		return (NULL);
-	while (start <= size)
+	while (start_pos < size)
 	{
-		new_buff[start - corrector] = buffer[start];
-		start++;
+		new_buff[start_pos - corrector] = buffer[start_pos];
+		start_pos++;
 	}
+	// free(buffer);
 	return (new_buff);
 }
 
@@ -87,37 +99,3 @@ char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int bar_n_pos)
 	*st_bytesread = *st_bytesread - bar_n_pos - 1;
 	return (nl);
 }
-
-/* int main()
-{
-	char *str;
-	char *substr;
-	str = (char *)malloc(2*sizeof(char));
-	str[0] = 'a';
-	str[1] = '\n';
-	int posicion = posicion_barra_n(str, 2);
-
-	// printf("%d", posicion);
-
-
-	substr = ft_tail(str, 2 , posicion + 5);
-	printf("%s", substr);
-	// printf("%d", substr == NULL);
-} */
-
-/* int main()
-{
-	char *str;
-	char *substr;
-	str = (char *)malloc(2*sizeof(char));
-	str[0] = 'a';
-	str[1] = '\n';
-	int posicion = posicion_barra_n(str, 2);
-
-	// printf("%d", posicion);
-
-
-	substr = ft_tail(str, 2 , posicion + 5);
-	printf("%s", substr);
-	// printf("%d", substr == NULL);
-} */
