@@ -21,7 +21,7 @@ char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
 	new_buff = malloc((buff1_size + buff2_size) * sizeof(char));
 	if(!new_buff)
 	{
-		free(buff1);
+		ft_free(buff1);
 		// free(buff2);
 		return(NULL);
 
@@ -37,7 +37,7 @@ char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size)
 		new_buff[buff1_size + i] = buff2[i];
 		i++;
 	}
-	free(buff1);
+	ft_free(buff1);
 	return (new_buff);
 }
 
@@ -78,7 +78,7 @@ char	*ft_tail(char *buffer, int size, int start_pos)
 		new_buff[start_pos - corrector] = buffer[start_pos];
 		start_pos++;
 	}
-	free(buffer);
+	ft_free(buffer);
 	return (new_buff);
 }
 
@@ -94,6 +94,7 @@ char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int bar_n_pos)
 
 char	*ft_end_of_file(char **st_buffer, int *st_bytesread)
 {
+	//AQUI TENGO QUE AÑADIR UN NULO AL FINAL DEL BUFFER
 	char	*temp;
 
 	temp = *st_buffer;

@@ -29,6 +29,12 @@ static int	ft_bar_n_position(char *buffer, int size)
 	return (-1);
 }
 
+void	ft_free(char *buffer)
+{
+	if(buffer)
+		free(buffer);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*st_buffer = NULL;
@@ -46,8 +52,10 @@ char	*get_next_line(int fd)
 		bytesread = read(fd, buffer, BUFFER_SIZE);
 		if(bytesread < 0)
 		{
-			free(buffer);
-			free(st_buffer);
+			ft_free(st_buffer);
+			ft_free(buffer);
+			// free(buffer);
+			// free(st_buffer);
 			st_buffer = NULL;
 			st_bytesread = 0;
 			return (NULL);
@@ -55,14 +63,16 @@ char	*get_next_line(int fd)
 
 		if (bytesread == 0 && st_bytesread == 0)
 		{
-			free(buffer);
-			free(st_buffer);
+			ft_free(st_buffer);
+			ft_free(buffer);
+			// free(buffer);
+			// free(st_buffer);
 			st_buffer = NULL;
 			st_bytesread = 0;
 			return (NULL);
 		}
 		st_buffer = ft_new_buff(st_buffer, st_bytesread, buffer, bytesread);
-		free(buffer);
+		ft_free(buffer);
 		st_bytesread += bytesread;
 		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
 		if (bar_n_pos != -1)
@@ -91,7 +101,7 @@ int main()
 		printf("\ni = %d\n", i);
 		nl = get_next_line(fd);
 		printf("%s", nl);
-		free(nl);
+		ft_free(nl);
 	}
 	return (0);
 }
