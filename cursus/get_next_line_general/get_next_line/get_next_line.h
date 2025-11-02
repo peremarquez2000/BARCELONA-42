@@ -17,11 +17,11 @@
 # include <fcntl.h>
 // get_next_line.c
 char	*get_next_line(int fd);
-void	ft_free(char *buffer);
+void	ft_free(char **buffer);
 // get_next_line_utils.c
-char	*ft_tail(char *buffer, int size, int start);
+char	*ft_tail(char **buffer, int size, int start_pos);
 char	*ft_new_line(char *buffer, int end_position);
-char	*ft_new_buff(char *buff1, int buff1_size, char *buff2, int buff2_size);
+char	*ft_new_buff(char **buff1, int buff1_size, char *buff2, int buff2_size);
 char	*ft_end_of_file(char **st_buffer, int *st_bytesread);
 char	*ft_found_bar_n(char **st_buffer, int *st_bytesread, int posicion_barra_n);
 #endif

@@ -15,6 +15,17 @@
 # define BUFFER_SIZE 42
 #endif
 
+/* static void leer_buffer(char *buffer, int size)
+{
+	int i =0;
+	while(i < size)
+	{
+		write(1,&buffer[i], 1);
+		i++;
+	}
+	return ;
+} */
+
 static int	ft_bar_n_position(char *buffer, int size)
 {
 	int	i;
@@ -29,10 +40,11 @@ static int	ft_bar_n_position(char *buffer, int size)
 	return (-1);
 }
 
-void	ft_free(char *buffer)
+void	ft_free(char **buffer)
 {
-	if(buffer)
-		free(buffer);
+	if(*buffer != NULL)
+		free(*buffer);
+	*buffer = NULL;
 }
 
 char	*get_next_line(int fd)
@@ -44,35 +56,43 @@ char	*get_next_line(int fd)
 	int			bar_n_pos;
 
 	bytesread = 0;
-	buffer = (char *)malloc(BUFFER_SIZE * sizeof(char));
-	if (!buffer)
-		return (NULL);
 	while (1)
 	{
+		buffer = (char *)malloc(BUFFER_SIZE * sizeof(char));
+		if (!buffer)
+			return (NULL);
 		bytesread = read(fd, buffer, BUFFER_SIZE);
+		// printf("\n--------------------\n");
+		// printf("\nst_buffer ==\n");
+		// leer_buffer(st_buffer, st_bytesread);
+		// printf("\n");
+		// printf("\nst_bytesread=%d\n", st_bytesread);
+		// printf("\nbuffer ==\n");
+		// leer_buffer(buffer, bytesread);
+		// printf("\nbytesread=%d\n",bytesread);
 		if(bytesread < 0)
 		{
-			ft_free(st_buffer);
-			ft_free(buffer);
+			ft_free(&st_buffer);
+			ft_free(&buffer);
 			// free(buffer);
 			// free(st_buffer);
-			st_buffer = NULL;
+			// st_buffer = NULL;
 			st_bytesread = 0;
 			return (NULL);
 		}
 
 		if (bytesread == 0 && st_bytesread == 0)
 		{
-			ft_free(st_buffer);
-			ft_free(buffer);
+			ft_free(&st_buffer);
+			ft_free(&buffer);
 			// free(buffer);
 			// free(st_buffer);
-			st_buffer = NULL;
+			// st_buffer = NULL;
 			st_bytesread = 0;
 			return (NULL);
 		}
-		st_buffer = ft_new_buff(st_buffer, st_bytesread, buffer, bytesread);
-		ft_free(buffer);
+		st_buffer = ft_new_buff(&st_buffer, st_bytesread, buffer, bytesread);
+		ft_free(&buffer);
 		st_bytesread += bytesread;
 		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
 		if (bar_n_pos != -1)
@@ -85,7 +105,7 @@ char	*get_next_line(int fd)
 
 int main()
 {
-	char *fileName = "test.txt";
+	char *fileName = "4-u.txt";
 	char* nl;
 	int fd = open(fileName, O_RDONLY);
 	if (fd == -1)
@@ -96,12 +116,12 @@ int main()
 	else
 		printf("\nFile \"%s\" opened sucessfully!\n", fileName);
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		printf("\ni = %d\n", i);
 		nl = get_next_line(fd);
 		printf("%s", nl);
-		ft_free(nl);
+		ft_free(&nl);
 	}
 	return (0);
 }
