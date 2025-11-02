@@ -34,11 +34,11 @@ int main()
     }
 
 		printf("\ni = %d\n", 1);
-		nl = get_next_line(fd2);
+		nl = get_next_line(fd1);
 		printf("%s", nl);
 
         printf("\ni = %d\n", 2);
-		nl = get_next_line(fd1);
+		nl = get_next_line(fd2);
 		printf("%s", nl);
 
 		printf("\ni = %d\n", 3);
