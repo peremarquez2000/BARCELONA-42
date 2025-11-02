@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
+# define BUFFER_SIZE 5
 #endif
 
 /* static void leer_buffer(char *buffer, int size)
@@ -72,19 +72,19 @@ char	*get_next_line(int fd)
 		bytesread = read(fd, buffer, BUFFER_SIZE);
 		if (bytesread < 0 || (bytesread == 0 && st_bytesread == 0))
 			return (full_free(&st_buffer, &buffer, &st_bytesread, &bytesread));
-		st_buffer = ft_new_buff(&st_buffer, &st_bytesread, &buffer, &bytesread);
+		st_buffer = ft_new_buff(&st_buffer, &st_bytesread, &buffer, bytesread);
 		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
 		if (bar_n_pos != -1)
 			return (ft_found_bar_n(&st_buffer, &st_bytesread, bar_n_pos));
-		else if (st_bytesread != BUFFER_SIZE && bytesread != BUFFER_SIZE)
+		else if (bytesread != BUFFER_SIZE)
 			return (ft_end_of_file(&st_buffer, &st_bytesread));
 	}
 }
 
-/* #include <stdio.h>
-int main()
+
+/* int main()
 {
-	char *fileName = "4-u.txt";
+	char *fileName = "test1.txt";
 	char* nl;
 	int fd = open(fileName, O_RDONLY);
 	if (fd == -1)

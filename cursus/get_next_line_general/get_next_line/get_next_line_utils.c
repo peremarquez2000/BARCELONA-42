@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*ft_new_buff(char **buf1, int *buf1_size, char **buf2, int *buf2_size)
+char	*ft_new_buff(char **buf1, int *buf1_size, char **buf2, int buf2_size)
 {
 	int		i;
 	char	*new_buff;
 
-	new_buff = malloc((*buf1_size + *buf2_size) * sizeof(char));
+	new_buff = malloc((*buf1_size + buf2_size) * sizeof(char));
 	if (!new_buff)
 	{
 		ft_free(buf1);
@@ -26,12 +26,11 @@ char	*ft_new_buff(char **buf1, int *buf1_size, char **buf2, int *buf2_size)
 	while (++i < *buf1_size)
 		new_buff[i] = (*buf1)[i];
 	i = -1;
-	while (++i < *buf2_size)
+	while (++i < buf2_size)
 		new_buff[*buf1_size + i] = (*buf2)[i];
 	ft_free(buf1);
 	ft_free(buf2);
-	*buf1_size += *buf2_size;
-	*buf2_size = 0;
+	*buf1_size += buf2_size;
 	return (new_buff);
 }
 

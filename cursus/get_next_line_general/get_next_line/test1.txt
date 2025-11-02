@@ -1,6 +1,1 @@
-hola
-que
-buen
-dia
-hace
-hoy
+12345
