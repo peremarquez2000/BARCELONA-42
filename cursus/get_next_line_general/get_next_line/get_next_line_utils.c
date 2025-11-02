@@ -12,32 +12,27 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*ft_new_buff(char **buff1, int buff1_size, char *buff2, int buff2_size)
+char	*ft_new_buff(char **buf1, int *buf1_size, char **buf2, int *buf2_size)
 {
 	int		i;
 	char	*new_buff;
 
 	i = 0;
-	new_buff = malloc((buff1_size + buff2_size) * sizeof(char));
-	if(!new_buff)
+	new_buff = malloc((*buf1_size + *buf2_size) * sizeof(char));
+	if (!new_buff)
 	{
-		ft_free(buff1);
-		// free(buff2);
-		return(NULL);
-
+		ft_free(buf1);
+		return (NULL);
 	}
-	while (i < buff1_size)
-	{
-		new_buff[i] = (*buff1)[i];
-		i++;
-	}
+	while (i < *buf1_size)
+		new_buff[i] = (*buf1)[i++];
 	i = 0;
-	while (i < buff2_size)
-	{
-		new_buff[buff1_size + i] = buff2[i];
-		i++;
-	}
-	ft_free(buff1);
+	while (i < *buf2_size)
+		new_buff[*buf1_size + i] = (*buf2)[i++];
+	ft_free(buf1);
+	ft_free(buf2);
+	*buf1_size += *buf2_size;
+	*buf2_size = 0;
 	return (new_buff);
 }
 
@@ -97,22 +92,17 @@ char	*ft_end_of_file(char **st_buffer, int *st_bytesread)
 	char	*temp;
 	int		i;
 
-	temp = malloc((*st_bytesread + 1)*sizeof(char));
+	temp = malloc((*st_bytesread + 1) * sizeof(char));
 	if (!temp)
 		return (NULL);
 	i = 0;
-	while(i < *st_bytesread)
+	while (i < *st_bytesread)
 	{
 		temp[i] = (*st_buffer)[i];
 		i++;
 	}
 	temp[*st_bytesread] = (char)0;
 	ft_free(st_buffer);
-	// *st_buffer = NULL;
 	*st_bytesread = 0;
-
-	/* temp = *st_buffer;
-	*st_buffer = NULL;
-	*st_bytesread = 0; */
 	return (temp);
 }

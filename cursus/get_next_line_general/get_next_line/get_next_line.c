@@ -42,9 +42,18 @@ static int	ft_bar_n_position(char *buffer, int size)
 
 void	ft_free(char **buffer)
 {
-	if(*buffer != NULL)
+	if (*buffer != NULL)
 		free(*buffer);
 	*buffer = NULL;
+}
+
+static char	*full_free(char **buf1, char **buf2, int *buf1_size, int *buf2_size)
+{
+	ft_free(buf1);
+	ft_free(buf2);
+	*buf1_size = 0;
+	*buf2_size = 0;
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
@@ -62,48 +71,18 @@ char	*get_next_line(int fd)
 		if (!buffer)
 			return (NULL);
 		bytesread = read(fd, buffer, BUFFER_SIZE);
-		// printf("\n--------------------\n");
-		// printf("\nst_buffer ==\n");
-		// leer_buffer(st_buffer, st_bytesread);
-		// printf("\n");
-		// printf("\nst_bytesread=%d\n", st_bytesread);
-		// printf("\nbuffer ==\n");
-		// leer_buffer(buffer, bytesread);
-		// printf("\nbytesread=%d\n",bytesread);
-		if(bytesread < 0)
-		{
-			ft_free(&st_buffer);
-			ft_free(&buffer);
-			// free(buffer);
-			// free(st_buffer);
-			// st_buffer = NULL;
-			st_bytesread = 0;
-			return (NULL);
-		}
-
-		if (bytesread == 0 && st_bytesread == 0)
-		{
-			ft_free(&st_buffer);
-			ft_free(&buffer);
-			// free(buffer);
-			// free(st_buffer);
-			// st_buffer = NULL;
-			st_bytesread = 0;
-			return (NULL);
-		}
-		st_buffer = ft_new_buff(&st_buffer, st_bytesread, buffer, bytesread);
-		ft_free(&buffer);
-		st_bytesread += bytesread;
+		if (bytesread < 0 || (bytesread == 0 && st_bytesread == 0))
+			return (full_free(&st_buffer, &buffer, &st_bytesread, &bytesread));
+		st_buffer = ft_new_buff(&st_buffer, &st_bytesread, &buffer, &bytesread);
 		bar_n_pos = ft_bar_n_position(st_buffer, st_bytesread);
 		if (bar_n_pos != -1)
-			// free(buffer);
 			return (ft_found_bar_n(&st_buffer, &st_bytesread, bar_n_pos));
 		else if (st_bytesread != BUFFER_SIZE && bytesread != BUFFER_SIZE)
 			return (ft_end_of_file(&st_buffer, &st_bytesread));
 	}
 }
 
-int main()
+/* int main()
 {
 	char *fileName = "4-u.txt";
 	char* nl;
@@ -124,4 +103,4 @@ int main()
 		ft_free(&nl);
 	}
 	return (0);
-}
+} */
