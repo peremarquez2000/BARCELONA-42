@@ -14,9 +14,9 @@
 #include <stdio.h>
 int main()
 {
-	char *fileName1 = "4-u.txt";
-	char *fileName2 = "3-oneline.txt";
-	char *fileName3 = "test.txt";
+	char *fileName1 = "test1.txt";
+	char *fileName2 = "test2.txt";
+	char *fileName3 = "test3.txt";
 	char* nl;
 	int fd1 = open(fileName1, O_RDONLY);
 	int fd2 = open(fileName2, O_RDONLY);
@@ -34,12 +34,16 @@ int main()
     }
 
 		printf("\ni = %d\n", 1);
-		nl = get_next_line(fd1);
+		nl = get_next_line(fd2);
 		printf("%s", nl);
 
         printf("\ni = %d\n", 2);
-		nl = get_next_line(fd2);
+		nl = get_next_line(fd1);
 		printf("%s", nl);
-		ft_free(&nl);
+
+		printf("\ni = %d\n", 3);
+		nl = get_next_line(fd1);
+		printf("%s", nl);
+		
 	return (0);
 }
