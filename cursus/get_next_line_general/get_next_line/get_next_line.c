@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
-#include <stdio.h>
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
 #endif
@@ -82,7 +81,8 @@ char	*get_next_line(int fd)
 	}
 }
 
-/* int main()
+/* #include <stdio.h>
+int main()
 {
 	char *fileName = "4-u.txt";
 	char* nl;
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	else
 		printf("\nFile \"%s\" opened sucessfully!\n", fileName);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		printf("\ni = %d\n", i);
 		nl = get_next_line(fd);
